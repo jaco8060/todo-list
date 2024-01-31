@@ -6,6 +6,7 @@ class Todo {
     this._project = project;
   }
 
+  // Getters
   get title() {
     return this._title;
   }
@@ -20,6 +21,24 @@ class Todo {
 
   get project() {
     return this._project;
+  }
+
+  // Setters
+  set title(newTitle) {
+    // Optionally, add validation or other logic here
+    this._title = newTitle;
+  }
+
+  set details(newDetails) {
+    this._details = newDetails;
+  }
+
+  set date(newDate) {
+    this._date = newDate;
+  }
+
+  set project(newProject) {
+    this._project = newProject;
   }
 }
 
