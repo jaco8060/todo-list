@@ -1,25 +1,26 @@
 class Todo {
   constructor(title, details, date, project) {
-    this.title = title;
-    this.details = details;
-    this.date = date;
-    this.project = project;
+    this._title = title; // Using underscore-prefixed private property
+    this._details = details;
+    this._date = date;
+    this._project = project;
   }
 
-  // Getters
-  get getTitle() {
-    return this.title;
+  get title() {
+    return this._title;
   }
 
-  get getDetails() {
-    return this.details;
+  get details() {
+    return this._details;
   }
 
-  get getDate() {
-    return this.date;
+  get date() {
+    return this._date;
   }
 
-  get getProject() {
-    return this.project;
+  get project() {
+    return this._project;
   }
 }
+
+export { Todo };
