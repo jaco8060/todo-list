@@ -1,10 +1,25 @@
-class todo {
+class Todo {
   constructor(title, details, date, project) {
-    title = this.title;
-    details = this.details;
-    date = this.date;
-    project = this.project;
+    this.title = title;
+    this.details = details;
+    this.date = date;
+    this.project = project;
   }
 
-  //getters
+  // Getters
+  get getTitle() {
+    return this.title;
+  }
+
+  get getDetails() {
+    return this.details;
+  }
+
+  get getDate() {
+    return this.date;
+  }
+
+  get getProject() {
+    return this.project;
+  }
 }

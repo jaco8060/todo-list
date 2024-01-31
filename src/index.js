@@ -1,3 +1,3 @@
 import "./style.css";
 
-import todo
+import "./modules/todo";
