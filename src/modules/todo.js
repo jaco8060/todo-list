@@ -3,7 +3,6 @@ class Todo {
     this._title = title; // Using underscore-prefixed private property
     this._details = details;
     this._date = date;
-    this._project = project;
   }
 
   // Getters
@@ -35,10 +34,6 @@ class Todo {
 
   set date(newDate) {
     this._date = newDate;
-  }
-
-  set project(newProject) {
-    this._project = newProject;
   }
 
   //methods make starred, remove starred
