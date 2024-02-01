@@ -1,5 +1,5 @@
 class Todo {
-  constructor(title, details, date, project) {
+  constructor(title, details, date) {
     this._title = title; // Using underscore-prefixed private property
     this._details = details;
     this._date = date;
@@ -40,6 +40,8 @@ class Todo {
   set project(newProject) {
     this._project = newProject;
   }
+
+  //methods make starred, remove starred
 }
 
 export { Todo };
