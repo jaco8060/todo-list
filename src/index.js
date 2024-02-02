@@ -3,12 +3,7 @@ import { Project } from "./modules/projectController";
 import { Todo } from "./modules/todo";
 import { todoView } from "./modules/todoView";
 import "./style.css";
-const todoItem = new Todo(
-  "Workout",
-  "Chest workout",
-  new Date().toLocaleDateString()
-);
-
+const todoItem = new Todo("Workout", "Chest workout", new Date(2024, 1, 1));
 // Correct usage of TodoView
 todoView.displayTodo(todoItem);
 

@@ -1,9 +1,11 @@
+import { isBefore, startOfToday } from "date-fns";
 class Todo {
   constructor(title, details, date) {
     this._title = title; // Using underscore-prefixed private property
     this._details = details;
     this._date = date;
     this._starred = false;
+    this.updateOverdueStatus();
   }
 
   // Getters
@@ -37,7 +39,22 @@ class Todo {
     this._date = newDate;
   }
 
-  //methods make starred, remove starred
+  updateOverdueStatus() {
+    this._isOverdue = isBefore(this._date, startOfToday());
+  }
+  get isOverdue() {
+    return this._isOverdue;
+  }
+
+  // Method to mark the todo as starred
+  makeStarred() {
+    this._starred = true;
+  }
+
+  // Method to remove the starred status
+  removeStarred() {
+    this._starred = false;
+  }
 }
 
 export { Todo };
