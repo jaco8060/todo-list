@@ -33,3 +33,5 @@ project2.addProjectTask("Project2 task3", "XD", new Date(2024, 1));
 todoView.displayProjectList(project2);
 project2.removeProjectTask(project2.todoList[0]);
 todoView.displayProjectList(project2);
+
+console.log(allTodos.getTodoList());

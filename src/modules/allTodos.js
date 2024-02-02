@@ -6,6 +6,13 @@ const allTodos = (function () {
     allTodosList.push(todo);
   };
 
+  const removeTodo = (todoToRemove) => {
+    const index = allTodosList.findIndex((todo) => todo === todoToRemove);
+    if (index !== -1) {
+      allTodosList.splice(index, 1); // Remove the todo if found
+    }
+  };
+
   const getTodoList = () => allTodosList;
 
   const checkDate = () => {
@@ -38,6 +45,7 @@ const allTodos = (function () {
     withinSevenList,
     todayList,
     starredList,
+    removeTodo,
   };
 })();
 

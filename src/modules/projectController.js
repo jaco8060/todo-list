@@ -25,6 +25,7 @@ class Project {
     if (index !== -1) {
       this._todoList.splice(index, 1); // Remove the todo if found
     }
+    allTodos.removeTodo(todoToRemove);
   };
 }
 
