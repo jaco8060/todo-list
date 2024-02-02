@@ -1,16 +1,7 @@
-import {
-  add,
-  endOfDay,
-  endOfToday,
-  isAfter,
-  isBefore,
-  isToday,
-  startOfToday,
-} from "date-fns";
+import { add, endOfDay, endOfToday, isBefore, startOfToday } from "date-fns";
 
 const allTodos = (function () {
   const allTodosList = [];
-  const starredList = [];
   const appendTodo = (todo) => {
     allTodosList.push(todo);
   };
@@ -37,7 +28,17 @@ const allTodos = (function () {
     return allTodosList.filter((todo) => isBefore(todo.date, endOfToday()));
   };
 
-  return { getTodoList, appendTodo, withinSevenList, todayList };
+  const starredList = () => {
+    return allTodosList.filter((todo) => todo.starred === true);
+  };
+
+  return {
+    getTodoList,
+    appendTodo,
+    withinSevenList,
+    todayList,
+    starredList,
+  };
 })();
 
 export { allTodos };

@@ -26,4 +26,6 @@ todoView.displayProjectList(project2);
 console.log(allTodos.getTodoList());
 console.log(allTodos.withinSevenList());
 console.log(allTodos.todayList());
-console.log;
+
+project1.todoList[0].makeStarred();
+console.log(allTodos.starredList());

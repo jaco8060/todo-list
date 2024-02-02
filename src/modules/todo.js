@@ -21,10 +21,6 @@ class Todo {
     return this._date;
   }
 
-  get project() {
-    return this._project;
-  }
-
   // Setters
   set title(newTitle) {
     // Optionally, add validation or other logic here
@@ -54,6 +50,10 @@ class Todo {
   // Method to remove the starred status
   removeStarred() {
     this._starred = false;
+  }
+
+  get starred() {
+    return this._starred;
   }
 }
 
