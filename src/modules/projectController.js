@@ -19,6 +19,13 @@ class Project {
     this._todoList.push(todoItem);
     allTodos.appendTodo(todoItem);
   }
+
+  removeProjectTask = (todoToRemove) => {
+    const index = this._todoList.findIndex((todo) => todo === todoToRemove);
+    if (index !== -1) {
+      this._todoList.splice(index, 1); // Remove the todo if found
+    }
+  };
 }
 
 export { Project };

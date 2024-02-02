@@ -13,19 +13,23 @@ const project2 = new Project("project2");
 project1.addProjectTask("Project1 task1", "HEHEHEHE", new Date(2024, 1, 3));
 project1.addProjectTask("Project1 task2", "XD", new Date(2024, 1, 9));
 
-project2.addProjectTask("Project2 task1", "HEHEHEHE", new Date(2024, 1, 2));
+project2.addProjectTask("TO BE REMOVED", "HEHEHEHE", new Date(2024, 1, 2));
 project2.addProjectTask("Project2 task2", "XD", new Date(2024, 1, 2));
 project2.addProjectTask("Project2 task3", "XD", new Date(2024, 1));
 
-todoView.displayProjectList(project1);
+// todoView.displayProjectList(project1);
+// todoView.displayProjectList(project2);
+
+// // console.log(allTodos.checkDate().today);
+// // console.log(allTodos.checkDate().sevenEndDate);
+
+// console.log(allTodos.getTodoList());
+// console.log(allTodos.withinSevenList());
+// console.log(allTodos.todayList());
+
+// project1.todoList[0].makeStarred();
+// console.log(allTodos.starredList());
+
 todoView.displayProjectList(project2);
-
-// console.log(allTodos.checkDate().today);
-// console.log(allTodos.checkDate().sevenEndDate);
-
-console.log(allTodos.getTodoList());
-console.log(allTodos.withinSevenList());
-console.log(allTodos.todayList());
-
-project1.todoList[0].makeStarred();
-console.log(allTodos.starredList());
+project2.removeProjectTask(project2.todoList[0]);
+todoView.displayProjectList(project2);
