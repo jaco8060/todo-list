@@ -3,6 +3,7 @@ class Todo {
     this._title = title; // Using underscore-prefixed private property
     this._details = details;
     this._date = date;
+    this._starred = false;
   }
 
   // Getters

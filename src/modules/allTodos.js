@@ -1,6 +1,7 @@
 import {
   add,
   endOfDay,
+  endOfToday,
   isAfter,
   isBefore,
   isToday,
@@ -32,7 +33,11 @@ const allTodos = (function () {
     );
   };
 
-  return { getTodoList, appendTodo, checkDate, withinSevenList };
+  const todayList = () => {
+    return allTodosList.filter((todo) => isBefore(todo.date, endOfToday()));
+  };
+
+  return { getTodoList, appendTodo, withinSevenList, todayList };
 })();
 
 export { allTodos };
