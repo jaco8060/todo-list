@@ -1,5 +1,7 @@
 import { allTodos } from "./allTodos";
 import { Todo } from "./todo";
+import { webStorage } from "./webStorage";
+}
 class Project {
   constructor(projectName, index) {
     this._projectName = projectName;
@@ -40,3 +42,4 @@ class Project {
 }
 
 export { Project };
+
