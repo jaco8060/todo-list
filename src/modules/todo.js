@@ -3,7 +3,7 @@ class Todo {
   constructor(title, details, date) {
     this._title = title; // Using underscore-prefixed private property
     this._details = details;
-    this._date = date;
+    this._date = date instanceof Date ? date : new Date(date); // Ensure _date is a Date object
     this._starred = false;
     this.updateOverdueStatus();
   }

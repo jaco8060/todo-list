@@ -1,10 +1,10 @@
 import { allTodos } from "./allTodos";
 import { Todo } from "./todo";
 class Project {
-  constructor(projectName) {
+  constructor(projectName, index) {
     this._projectName = projectName;
     this._todoList = [];
-    localStorage.setItem("projectStorage", JSON.stringify(todoItem));
+    this._index = index;
   }
 
   get projectName() {
@@ -14,12 +14,19 @@ class Project {
     return this._todoList;
   }
 
+  get index() {
+    return this._index;
+  }
+
+  set index(newIndex) {
+    this._index = newIndex;
+  }
+
   addProjectTask(title, details, date) {
     // Create todo list object
     const todoItem = new Todo(title, details, date);
     this._todoList.push(todoItem);
     // save to storage
-
     allTodos.appendTodo(todoItem);
   }
 
