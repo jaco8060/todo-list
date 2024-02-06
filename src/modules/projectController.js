@@ -3,9 +3,9 @@ import { Todo } from "./todo";
 import { webStorage } from "./webStorage";
 class Project {
   constructor(projectName, index) {
+    this._index = index;
     this._projectName = projectName;
     this._todoList = [];
-    this._index = index;
   }
 
   get projectName() {
@@ -28,8 +28,8 @@ class Project {
     const todoItem = new Todo(title, details, date);
     this._todoList.push(todoItem);
     // save to storage
-    webStorage.saveToStorage(this._todoList, this._index);
-    allTodos.appendTodo(todoItem);
+    webStorage.saveToStorage(this._todoList, "myProjectList");
+    // allTodos.appendTodo(todoItem);
   }
 
   removeProjectTask = (todoToRemove) => {

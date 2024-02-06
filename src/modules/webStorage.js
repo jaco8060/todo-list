@@ -1,6 +1,14 @@
 const webStorage = (function () {
-  const saveToStorage = (objectToSave, index) => {
-    localStorage.setItem(index, JSON.stringify(objectToSave));
+  const saveToStorage = (objectToSave, listName) => {
+    // Retrieve the existing array from local storage
+    let storedData = localStorage.getItem(listName);
+
+    // Parse the retrieved data or initialize an empty array if null
+    let myArray = storedData ? JSON.parse(storedData) : [];
+
+    //append new data to parsed array:
+    myArray.push(objectToSave);
+    localStorage.setItem(listName, JSON.stringify(myArray));
   };
 
   const clearStorage = () => {

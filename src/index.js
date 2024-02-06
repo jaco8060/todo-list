@@ -2,6 +2,7 @@ import { allTodos } from "./modules/allTodos";
 import { Project } from "./modules/projectController";
 import { Todo } from "./modules/todo";
 import { todoView } from "./modules/todoView";
+import { webStorage } from "./modules/webStorage";
 import "./style.css";
 const todoItem = new Todo("Workout", "Chest workout", new Date(2024, 1, 1));
 // Correct usage of TodoView
@@ -16,6 +17,8 @@ project1.addProjectTask("Project1 task2", "XD", new Date(2024, 1, 9));
 project2.addProjectTask("TO BE REMOVED", "HEHEHEHE", new Date(2024, 1, 2));
 project2.addProjectTask("Project2 task2", "XD", new Date(2024, 1, 2));
 project2.addProjectTask("Project2 task3", "XD", new Date(2024, 1));
+const allTodoList = webStorage.loadStorage("allTodos");
+console.log(allTodoList);
 
 // project2.removeProjectTask();
 
