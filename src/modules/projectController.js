@@ -1,7 +1,6 @@
 import { allTodos } from "./allTodos";
 import { Todo } from "./todo";
 import { webStorage } from "./webStorage";
-}
 class Project {
   constructor(projectName, index) {
     this._projectName = projectName;
@@ -29,6 +28,7 @@ class Project {
     const todoItem = new Todo(title, details, date);
     this._todoList.push(todoItem);
     // save to storage
+    webStorage.saveToStorage(this._todoList, this._index);
     allTodos.appendTodo(todoItem);
   }
 
@@ -37,9 +37,10 @@ class Project {
     if (index !== -1) {
       this._todoList.splice(index, 1); // Remove the todo if found from the project list
     }
+    // remove from storage
+    webStorage.removeStorage(this._index);
     allTodos.removeTodo(todoToRemove); //also remove from the all todos list
   };
 }
 
 export { Project };
-

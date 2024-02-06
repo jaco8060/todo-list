@@ -1,9 +1,11 @@
 import { add, endOfDay, endOfToday, isBefore, startOfToday } from "date-fns";
+import { webStorage } from "./webStorage";
 
 const allTodos = (function () {
   const allTodosList = [];
   const appendTodo = (todo) => {
     allTodosList.push(todo);
+    webStorage.saveToStorage(allTodosList, "allTodos");
   };
 
   const removeTodo = (todoToRemove) => {
