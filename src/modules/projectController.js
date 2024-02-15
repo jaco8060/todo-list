@@ -30,7 +30,6 @@ class Project {
 
     // save to storage
     webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
-    // allTodos.appendTodo(todoItem);
   }
 
   removeProjectTask = (todoToRemove) => {
@@ -39,8 +38,7 @@ class Project {
       this._todoList.splice(index, 1); // Remove the todo if found from the project list
     }
     // remove from storage
-    webStorage.removeStorage(this._index);
-    allTodos.removeTodo(todoToRemove); //also remove from the all todos list
+    webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
   };
 }
 

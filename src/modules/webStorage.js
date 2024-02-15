@@ -14,7 +14,6 @@ const webStorage = (function () {
 
     // replace/add tasks to project lists
     myArray[index] = objectToSave;
-    console.log(myArray[index]);
 
     // Save the updated array back to local storage
     localStorage.setItem(listName, JSON.stringify(myArray));
@@ -29,10 +28,7 @@ const webStorage = (function () {
     return myLocalData;
   };
 
-  const removeStorage = (index) => {
-    localStorage.removeItem(index);
-  };
-  return { saveToStorage, clearStorage, loadStorage, removeStorage };
+  return { saveToStorage, clearStorage, loadStorage };
 })();
 
 export { webStorage };

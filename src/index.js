@@ -36,7 +36,7 @@ console.log(allTodoList);
 // console.log(allTodos.starredList());
 
 // todoView.displayProjectList(project2);
-// project2.removeProjectTask(project2.todoList[0]);
-// todoView.displayProjectList(project2);
 
+project2.removeProjectTask(project2.todoList[0]);
+todoView.displayProjectList(project2);
 // console.log(allTodos.getTodoList());
