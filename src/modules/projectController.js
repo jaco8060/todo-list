@@ -30,6 +30,8 @@ class Project {
 
     // save to storage
     webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
+
+    allTodos.updateAllTodoListFromStorage(); //update all todos list
   }
 
   removeProjectTask = (todoToRemove) => {
@@ -39,6 +41,8 @@ class Project {
     }
     // remove from storage
     webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
+
+    allTodos.updateAllTodoListFromStorage(); //update all todos list
   };
 }
 

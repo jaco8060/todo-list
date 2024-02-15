@@ -2,17 +2,25 @@ import { add, endOfDay, endOfToday, isBefore, startOfToday } from "date-fns";
 import { webStorage } from "./webStorage";
 
 const allTodos = (function () {
-  const allTodosList = [];
-  const appendTodo = (todo) => {
-    allTodosList.push(todo);
-    webStorage.saveToStorage(allTodosList, "allTodos");
-  };
+  // This variable holds all todo items. It's updated based on storage or other operations.
+  let allTodosList = [];
 
-  const removeTodo = (todoToRemove) => {
-    const index = allTodosList.findIndex((todo) => todo === todoToRemove);
-    if (index !== -1) {
-      allTodosList.splice(index, 1); // Remove the todo if found
+  // Function to update allTodosList based on stored data
+  const updateAllTodoListFromStorage = () => {
+    let list = [];
+    let allProjects = webStorage.loadStorage("myProjectList");
+
+    if (Array.isArray(allProjects)) {
+      for (let i = 0; i < allProjects.length; i++) {
+        if (Array.isArray(allProjects[i])) {
+          for (let j = 0; j < allProjects[i].length; j++) {
+            list.push(allProjects[i][j]);
+          }
+        }
+      }
     }
+
+    allTodosList = list; // Update the allTodosList with the latest data
   };
 
   const getTodoList = () => allTodosList;
@@ -41,13 +49,15 @@ const allTodos = (function () {
     return allTodosList.filter((todo) => todo.starred === true);
   };
 
+  // Call this function to initially populate allTodosList from storage
+  updateAllTodoListFromStorage();
+
   return {
+    updateAllTodoListFromStorage, // Allow manual update from storage if needed
     getTodoList,
-    appendTodo,
     withinSevenList,
     todayList,
     starredList,
-    removeTodo,
   };
 })();
 

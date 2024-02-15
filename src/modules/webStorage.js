@@ -23,8 +23,8 @@ const webStorage = (function () {
     localStorage.clear();
   };
 
-  const loadStorage = (index) => {
-    const myLocalData = JSON.parse(localStorage.getItem(index));
+  const loadStorage = (name) => {
+    const myLocalData = JSON.parse(localStorage.getItem(name));
     return myLocalData;
   };
 
