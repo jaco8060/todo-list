@@ -27,8 +27,9 @@ class Project {
     // Create todo list object
     const todoItem = new Todo(title, details, date);
     this._todoList.push(todoItem);
+
     // save to storage
-    webStorage.saveToStorage(this._todoList, "myProjectList");
+    webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
     // allTodos.appendTodo(todoItem);
   }
 
