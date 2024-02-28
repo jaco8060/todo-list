@@ -4,22 +4,22 @@ import { Todo } from "./modules/todo";
 import { todoView } from "./modules/todoView";
 import { webStorage } from "./modules/webStorage";
 import "./style.css";
-const todoItem = new Todo("Workout", "Chest workout", new Date(2024, 1, 1));
-// Correct usage of TodoView
-todoView.displayTodo(todoItem);
+// const todoItem = new Todo("Workout", "Chest workout", new Date(2024, 1, 1));
+// // Correct usage of TodoView
+// todoView.displayTodo(todoItem);
 
-const project1 = new Project("project1", 0);
-const project2 = new Project("project2", 1);
+// const project1 = new Project("project1", 0);
+// const project2 = new Project("project2", 1);
 
-project1.addProjectTask("Project1 task1", "HEHEHEHE", new Date(2024, 1, 3));
-project1.addProjectTask("Project1 task2", "XD", new Date(2024, 1, 9));
+// project1.addProjectTask("Project1 task1", "HEHEHEHE", new Date(2024, 1, 3));
+// project1.addProjectTask("Project1 task2", "XD", new Date(2024, 1, 9));
 
-project2.addProjectTask("TO BE REMOVED", "HEHEHEHE", new Date(2024, 1, 2));
-project2.addProjectTask("Project2 task2", "XD", new Date(2024, 1, 2));
-project2.addProjectTask("Project2 task3", "XD", new Date(2024, 1));
+// project2.addProjectTask("TO BE REMOVED", "HEHEHEHE", new Date(2024, 1, 2));
+// project2.addProjectTask("Project2 task2", "XD", new Date(2024, 1, 2));
+// project2.addProjectTask("Project2 task3", "XD", new Date(2024, 1));
 
 // project2.removeProjectTask();
-console.log(allTodos.getTodoList());
+// console.log(allTodos.getTodoList());
 // todoView.displayProjectList(project1);
 // todoView.displayProjectList(project2);
 

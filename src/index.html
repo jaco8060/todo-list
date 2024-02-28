@@ -16,22 +16,32 @@
       </div>
       <nav id="nav">
         <div class="default-projects">
-          <button class="side-button">
+          <button class="side-button" id="inboxBtn">
             <img src="img\allTodos.svg" alt="Logo" class="button-icon" />
             Inbox
           </button>
-          <button class="side-button">
+          <button class="side-button" id="todayBtn">
             <img src="img\today.svg" alt="Logo" class="button-icon" />
             Today
           </button>
-          <button class="side-button">
+          <button class="side-button" id="weekBtn">
             <img src="img\sevenDays.svg" alt="Logo" class="button-icon" />
-            Next 7 Days
+            This Week
           </button>
         </div>
         <h1 class="projects-heading">Projects</h1>
-
         <div class="customProjects"></div>
+        <button class="side-button add-button" id="addProjectPopup">
+          <img src="img\add.svg" alt="Logo" class="button-icon" />
+          Add Project
+        </button>
+        <div class="input-group">
+          <input type="text" class="add-project-input" />
+          <div class="input-button-group">
+            <button class="add-project">Add</button>
+            <button class="cancel-project">Cancel</button>
+          </div>
+        </div>
       </nav>
       <div id="content"></div>
     </div>
