@@ -145,6 +145,7 @@ body {
 .input-group {
     display: none;
     flex-direction: column;
+    margin-top: 1rem;
 }
 
 .add-project-input {

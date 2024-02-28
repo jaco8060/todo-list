@@ -7,7 +7,7 @@ import "./style.css";
 // const todoItem = new Todo("Workout", "Chest workout", new Date(2024, 1, 1));
 // // Correct usage of TodoView
 // todoView.displayTodo(todoItem);
-
+todoView.initializeListeners();
 // const project1 = new Project("project1", 0);
 // const project2 = new Project("project2", 1);
 

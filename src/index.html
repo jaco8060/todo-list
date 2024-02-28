@@ -30,17 +30,19 @@
           </button>
         </div>
         <h1 class="projects-heading">Projects</h1>
-        <div class="customProjects"></div>
+        <div id="customProjects"></div>
         <button class="side-button add-button" id="addProjectPopup">
           <img src="img\add.svg" alt="Logo" class="button-icon" />
           Add Project
         </button>
         <div class="input-group">
-          <input type="text" class="add-project-input" />
-          <div class="input-button-group">
-            <button class="add-project">Add</button>
-            <button class="cancel-project">Cancel</button>
-          </div>
+          <form id="addProjectForm">
+            <input type="text" class="add-project-input" />
+            <div class="input-button-group">
+              <button type="button" class="add-project">Add</button>
+              <button type="button" class="cancel-project">Cancel</button>
+            </div>
+          </form>
         </div>
       </nav>
       <div id="content"></div>
