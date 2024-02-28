@@ -9,8 +9,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script defer src="main.js"></script></head>
   <body>
-    <div id="content">
-      <h1>by bye</h1>
+    <div class="main-container">
+      <div class="header">
+        <img src="img/logo.svg" alt="todo list logo" />
+        <h1>Todo List</h1>
+      </div>
+      <nav id="nav">
+        <div class="default-projects">
+          <button class="side-button">
+            <img src="img/allTodos.svg" alt="Logo" class="button-icon" />
+            Inbox
+          </button>
+          <button class="side-button">
+            <img src="img/today.svg" alt="Logo" class="button-icon" />
+            Today
+          </button>
+          <button class="side-button">
+            <img src="img/sevenDays.svg" alt="Logo" class="button-icon" />
+            This Week
+          </button>
+        </div>
+        <h1 class="projects-heading">Projects</h1>
+        <div class="customProjects"></div>
+        <button class="side-button add-button">
+          <img src="img/add.svg" alt="Logo" class="button-icon" />
+          Add Project
+        </button>
+        <div class="input-group">
+          <input type="text" class="add-project-input" />
+          <div class="input-button-group">
+            <button class="add-project">Add</button>
+            <button class="cancel-project">Cancel</button>
+          </div>
+        </div>
+      </nav>
+      <div id="content"></div>
     </div>
   </body>
 </html>
