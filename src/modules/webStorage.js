@@ -28,7 +28,20 @@ const webStorage = (function () {
     return myLocalData;
   };
 
-  return { saveToStorage, clearStorage, loadStorage };
+  const countProjectsInStorage = () => {
+    // Use the loadStorage function to retrieve the projects array
+    const projectsArray = webStorage.loadStorage("myProjectList");
+
+    // Check if the projectsArray exists and is an array, then return its length
+    if (Array.isArray(projectsArray)) {
+      return projectsArray.length;
+    }
+
+    // If the projectsArray doesn't exist, return 0
+    return 0;
+  };
+
+  return { saveToStorage, clearStorage, loadStorage, countProjectsInStorage };
 })();
 
 export { webStorage };
