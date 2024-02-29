@@ -129,7 +129,7 @@ body {
 .side-button:hover {
     background-color: var(--secondary-dark);
 }
-.side-button .button-icon {
+.button-icon {
     width: 2rem;
 }
 
@@ -195,4 +195,8 @@ body {
 .customProjects.side-button.active {
   background-color: var(--secondary-dark);
   font-weight: bold;
+}
+
+.project-button-icon {
+    width: 1.5rem;
 }

@@ -1,3 +1,6 @@
+import { allTodos } from "./allTodos";
+import { Project } from "./projectController";
+import { webStorage } from "./webStorage";
 class todoView {
   static displayTodo(Todo) {
     console.log(`Title: ${Todo.title}`);
@@ -51,8 +54,39 @@ class todoView {
       alert("Can't have a blank project name");
       return;
     } else {
-      console.log("im not empty");
+      //count how many projects are currently in the dom
+      const numProjects = webStorage.countProjectsInStorage();
+
+      //create a new project using the count as the index
+      const project = new Project(inputBox.value, numProjects);
     }
+  }
+
+  static addProjectButton(projectName) {
+    const projectList = document.getElementById("customProjects");
+
+    // Create the button element
+    const projectListButton = document.createElement("button");
+    button.setAttribute("class", "project-button");
+
+    // Create the img element
+    const img = document.createElement("img");
+    img.setAttribute("src", "img/menu-icon.svg"); // Ensure the path is correct
+    img.setAttribute("alt", "add icon");
+    img.setAttribute("class", "project-button-icon");
+
+    // Append the img to the button
+    projectListButton.appendChild(img);
+
+    // Add text node for "This Week" to the button
+    projectListButton.appendChild(document.createTextNode(projectName));
+
+    // Append the button to project list
+    projectList.appendChild(projectListButton);
+  }
+
+  static updateProjectListDisplay() {
+    const projectList = document.getElementById("customProjects");
   }
 }
 
