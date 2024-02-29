@@ -20,6 +20,7 @@ class todoView {
     const addProject = document.querySelector(".add-project");
     const cancelProject = document.querySelector(".cancel-project");
     const addProjectForm = document.getElementById("addProjectForm");
+    const starredBtn = document.getElementById("starBtn");
 
     inboxBtn.addEventListener("click", this.displayContentWindow);
     todayBtn.addEventListener("click", this.displayContentWindow);
@@ -28,6 +29,7 @@ class todoView {
     addProject.addEventListener("click", this.addProject);
     cancelProject.addEventListener("click", this.hidePopupDisplay);
     addProjectForm.addEventListener("submit", this.addProject);
+    addProjectForm.addEventListener("click", this.showPopupDisplay);
   }
   static displayContentWindow(e) {}
 
