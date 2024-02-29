@@ -25,11 +25,11 @@ class todoView {
     inboxBtn.addEventListener("click", this.displayContentWindow);
     todayBtn.addEventListener("click", this.displayContentWindow);
     weekBtn.addEventListener("click", this.displayContentWindow);
+    starredBtn.addEventListener("click", this.displayContentWindow);
     addProjectPopup.addEventListener("click", this.showPopupDisplay);
     addProject.addEventListener("click", this.addProject);
     cancelProject.addEventListener("click", this.hidePopupDisplay);
     addProjectForm.addEventListener("submit", this.addProject);
-    addProjectForm.addEventListener("click", this.showPopupDisplay);
   }
   static displayContentWindow(e) {}
 
