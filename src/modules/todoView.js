@@ -71,14 +71,12 @@ class todoView {
 
     // Create the img element
     const img = document.createElement("img");
-    img.setAttribute("src", "img/menu-icon.svg"); // Ensure the path is correct
+    img.setAttribute("src", "img/menu-icon.svg");
     img.setAttribute("alt", "add icon");
     img.setAttribute("class", "project-button-icon");
 
     // Append the img to the button
     projectListButton.appendChild(img);
-
-    // Add text node for "This Week" to the button
     projectListButton.appendChild(document.createTextNode(projectName));
 
     // Append the button to project list

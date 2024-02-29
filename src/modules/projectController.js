@@ -6,6 +6,9 @@ class Project {
     this._index = index;
     this._projectName = projectName;
     this._todoList = [];
+
+    // Save the empty todo list to storage upon project construction
+    webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
   }
 
   get projectName() {
