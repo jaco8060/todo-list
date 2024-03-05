@@ -8,7 +8,7 @@ class Project {
     this._projectName = projectName;
     this._todoList = [];
     if (saveImmediately) {
-      this.saveProject(); // Only save if specified, default is true
+      this.saveProject(); // Only save if specified, is true
     }
   }
 
