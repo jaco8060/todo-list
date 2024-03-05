@@ -1,19 +1,24 @@
 import { allTodos } from "./allTodos";
 import { Todo } from "./todo";
 import { webStorage } from "./webStorage";
+
 class Project {
   constructor(projectName, index) {
     this._index = index;
     this._projectName = projectName;
     this._todoList = [];
-
-    // Save the empty todo list to storage upon project construction
-    webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
+    this.saveProject(); // Save the project upon creation
   }
 
   get projectName() {
     return this._projectName;
   }
+
+  set projectName(value) {
+    this._projectName = value;
+    this.saveProject(); // Save any changes
+  }
+
   get todoList() {
     return this._todoList;
   }
@@ -24,29 +29,55 @@ class Project {
 
   set index(newIndex) {
     this._index = newIndex;
+    this.saveProject(); // Save any changes
   }
 
   addProjectTask(title, details, date) {
-    // Create todo list object
     const todoItem = new Todo(title, details, date);
     this._todoList.push(todoItem);
-
-    // save to storage
-    webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
-
-    allTodos.updateAllTodoListFromStorage(); //update all todos list
+    this.saveProject();
+    allTodos.updateAllTodoListFromStorage();
   }
 
-  removeProjectTask = (todoToRemove) => {
-    const index = this._todoList.findIndex((todo) => todo === todoToRemove);
+  removeProjectTask(todoToRemove) {
+    const index = this._todoList.findIndex(
+      (todo) =>
+        todo.title === todoToRemove.title &&
+        todo.details === todoToRemove.details &&
+        todo.date.getTime() === todoToRemove.date.getTime()
+    );
     if (index !== -1) {
-      this._todoList.splice(index, 1); // Remove the todo if found from the project list
+      this._todoList.splice(index, 1);
+      this.saveProject();
+      allTodos.updateAllTodoListFromStorage();
     }
-    // remove from storage
-    webStorage.saveToStorage(this._todoList, "myProjectList", this._index);
+  }
 
-    allTodos.updateAllTodoListFromStorage(); //update all todos list
-  };
+  saveProject() {
+    webStorage.saveToStorage(this.toJSON(), "myProjectList", this._index);
+  }
+
+  toJSON() {
+    return {
+      index: this._index,
+      projectName: this._projectName,
+      todoList: this._todoList.map((todo) => todo.toJSON()),
+    };
+  }
+
+  static rehydrate(projectData) {
+    const project = new Project(projectData.projectName, projectData.index);
+    projectData.todoList.forEach((todoData) => {
+      const todo = new Todo(
+        todoData.title,
+        todoData.details,
+        new Date(todoData.date)
+      );
+      if (todoData.starred) todo.makeStarred(); // Assuming Todo has makeStarred method
+      project._todoList.push(todo);
+    });
+    return project;
+  }
 }
 
 export { Project };

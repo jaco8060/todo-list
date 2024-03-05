@@ -87,6 +87,10 @@ class todoView {
 
   static updateProjectListDisplay() {
     const projectList = document.getElementById("customProjects");
+
+    // first reset the dom and then add all the elements together
+
+    this.addProjectButton();
   }
 }
 
