@@ -3,12 +3,12 @@ import { Todo } from "./todo";
 import { webStorage } from "./webStorage";
 
 class Project {
-  constructor(projectName, index) {
+  constructor(projectName, index, saveImmediately = true) {
     this._index = index;
     this._projectName = projectName;
     this._todoList = [];
     if (saveImmediately) {
-      this.saveProject(); // Only save if specified, default is true
+      this.saveProject(); // Only save if specified, is true
     }
   }
 
