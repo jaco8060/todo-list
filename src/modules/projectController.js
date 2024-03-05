@@ -7,7 +7,9 @@ class Project {
     this._index = index;
     this._projectName = projectName;
     this._todoList = [];
-    this.saveProject(); // Save the project upon creation
+    if (saveImmediately) {
+      this.saveProject(); // Only save if specified, default is true
+    }
   }
 
   get projectName() {
@@ -66,7 +68,12 @@ class Project {
   }
 
   static rehydrate(projectData) {
-    const project = new Project(projectData.projectName, projectData.index);
+    // Using 'false' to prevent automatic saving during rehydration
+    const project = new Project(
+      projectData.projectName,
+      projectData.index,
+      false
+    );
     projectData.todoList.forEach((todoData) => {
       const todo = new Todo(
         todoData.title,
