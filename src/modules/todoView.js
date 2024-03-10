@@ -64,33 +64,40 @@ class todoView {
     }
   }
 
-  static addProjectButton(projectName) {
+  static addProjectButton(projectName, index) {
     const projectList = document.getElementById("customProjects");
+    // Create the button container
+    const buttonContainer = document.createElement("div");
 
-    // Create the button element
-    const projectListButton = document.createElement("button");
-    button.setAttribute("class", "project-button");
+    buttonContainer.setAttribute("class", "project-button-container");
 
-    // Create the img element
-    const img = document.createElement("img");
-    img.setAttribute("src", "img/menu-icon.svg");
-    img.setAttribute("alt", "add icon");
-    img.setAttribute("class", "project-button-icon");
+    const buttonContainerHTML = `
+    <button class="project-button" data-index="${index}">
+        <img src="img/menu-icon.svg" alt="add icon" class="project-button-icon">
+        ${projectName}
+    </button>
+    <i class="fa-solid fa-xmark" ></i>
+    `;
+    buttonContainer.innerHTML = buttonContainerHTML;
 
-    // Append the img to the button
-    projectListButton.appendChild(img);
-    projectListButton.appendChild(document.createTextNode(projectName));
+    //
 
     // Append the button to project list
-    projectList.appendChild(projectListButton);
+    projectList.appendChild(buttonContainer);
   }
 
   static updateProjectListDisplay() {
     const projectList = document.getElementById("customProjects");
 
     // first reset the dom and then add all the elements together
+    projectList.innerHTML = "";
 
-    this.addProjectButton();
+    const localStorageList = webStorage.loadStorage("myProjectList");
+
+    console.log(localStorageList);
+    localStorageList.forEach((list_item) => {
+      this.addProjectButton(list_item.projectName, list_item.index);
+    });
   }
 }
 
