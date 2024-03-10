@@ -206,6 +206,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 0.5rem;
+    gap: 1rem;
 }
 .project-button {
     background-color: var(--secondary-light);

@@ -116,6 +116,12 @@ class todoView {
 
     // Retrieve the 'data-index' attribute from the project button
     const index = projectButton.getAttribute("data-index");
+
+    //delete from project list
+    webStorage.deleteFromStorage(index);
+
+    // delete from dom
+    buttonContainer.remove();
   }
 }
 

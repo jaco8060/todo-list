@@ -28,7 +28,12 @@ const webStorage = (function () {
 
     storedData.splice(index, 1);
 
-    localStorage.setItem("myProjectList", JSON.stringify(myArray));
+    // reset indices
+    for (let i = 0; i < storedData.length; i++) {
+      storedData[i].index = i;
+    }
+
+    localStorage.setItem("myProjectList", JSON.stringify(storedData));
   };
   const loadStorage = (name) => {
     const myLocalData = JSON.parse(localStorage.getItem(name));
