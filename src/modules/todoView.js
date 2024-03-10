@@ -61,6 +61,11 @@ class todoView {
 
       //create a new project using the count as the index
       const project = new Project(inputBox.value, numProjects);
+
+      // update dom
+      todoView.updateProjectListDisplay();
+      inputBox.value = "";
+      todoView.hidePopupDisplay();
     }
   }
 
@@ -71,13 +76,26 @@ class todoView {
 
     buttonContainer.setAttribute("class", "project-button-container");
 
-    const buttonContainerHTML = `
-    <button class="project-button" data-index="${index}">
-        <img src="img/menu-icon.svg" alt="add icon" class="project-button-icon">
-        ${projectName}
-    </button>
-    `;
-    buttonContainer.innerHTML = buttonContainerHTML;
+    // Create the button element
+    const projectListButton = document.createElement("button");
+    projectListButton.setAttribute("class", "project-button");
+
+    // Create the img element
+    const img = document.createElement("img");
+    img.setAttribute("src", "img/menu-icon.svg");
+    img.setAttribute("alt", "add icon");
+    img.setAttribute("class", "project-button-icon");
+
+    // Append the img to the button
+    projectListButton.appendChild(img);
+
+    // Add text node for project name to the button
+    projectListButton.appendChild(document.createTextNode(projectName));
+    // Add event listener to update the dom
+    projectListButton.addEventListener("click", this.displayContentWindow);
+
+    // Add button to button container
+    buttonContainer.appendChild(projectListButton);
 
     // create delete button to delete project and append to button container
     const deleteButton = document.createElement("i");

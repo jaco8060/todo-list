@@ -7,7 +7,13 @@ import "./style.css";
 // const todoItem = new Todo("Workout", "Chest workout", new Date(2024, 1, 1));
 // // Correct usage of TodoView
 // todoView.displayTodo(todoItem);
-todoView.initializeListeners();
+document.addEventListener("DOMContentLoaded", (event) => {
+  // Initialize your application or set up event listeners
+  todoView.initializeListeners();
+
+  // update dom
+  todoView.updateProjectListDisplay();
+});
 const project1 = new Project("project1", 0);
 const project2 = new Project("project2", 1);
 const project3 = new Project("project3", 2);
@@ -26,7 +32,7 @@ const project = Project.rehydrate(projectData);
 
 console.log(project);
 
-todoView.updateProjectListDisplay();
+// todoView.updateProjectListDisplay();
 // project2.removeProjectTask();
 // console.log(allTodos.getTodoList());
 // todoView.displayProjectList(project1);
