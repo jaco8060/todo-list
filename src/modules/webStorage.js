@@ -23,6 +23,13 @@ const webStorage = (function () {
     localStorage.clear();
   };
 
+  const deleteFromStorage = (index) => {
+    let storedData = loadStorage("myProjectList");
+
+    storedData.splice(index, 1);
+
+    localStorage.setItem("myProjectList", JSON.stringify(myArray));
+  };
   const loadStorage = (name) => {
     const myLocalData = JSON.parse(localStorage.getItem(name));
     return myLocalData;
@@ -30,7 +37,7 @@ const webStorage = (function () {
 
   const countProjectsInStorage = () => {
     // Use the loadStorage function to retrieve the projects array
-    const projectsArray = webStorage.loadStorage("myProjectList");
+    const projectsArray = loadStorage("myProjectList");
 
     // Check if the projectsArray exists and is an array, then return its length
     if (Array.isArray(projectsArray)) {
@@ -41,7 +48,13 @@ const webStorage = (function () {
     return 0;
   };
 
-  return { saveToStorage, clearStorage, loadStorage, countProjectsInStorage };
+  return {
+    saveToStorage,
+    clearStorage,
+    loadStorage,
+    countProjectsInStorage,
+    deleteFromStorage,
+  };
 })();
 
 export { webStorage };

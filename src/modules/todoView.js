@@ -76,11 +76,15 @@ class todoView {
         <img src="img/menu-icon.svg" alt="add icon" class="project-button-icon">
         ${projectName}
     </button>
-    <i class="fa-solid fa-xmark" ></i>
     `;
     buttonContainer.innerHTML = buttonContainerHTML;
 
-    //
+    // create delete button to delete project and append to button container
+    const deleteButton = document.createElement("i");
+    deleteButton.setAttribute("class", "fa-solid fa-xmark");
+    deleteButton.addEventListener("click", this.deleteProjectButton);
+
+    buttonContainer.appendChild(deleteButton);
 
     // Append the button to project list
     projectList.appendChild(buttonContainer);
@@ -98,6 +102,20 @@ class todoView {
     localStorageList.forEach((list_item) => {
       this.addProjectButton(list_item.projectName, list_item.index);
     });
+  }
+
+  static deleteProjectButton(e) {
+    // Prevent the default action
+    e.preventDefault();
+
+    // Access the parent container of the clicked delete button
+    const buttonContainer = e.target.parentNode;
+
+    // Find the project button within the container
+    const projectButton = buttonContainer.querySelector(".project-button");
+
+    // Retrieve the 'data-index' attribute from the project button
+    const index = projectButton.getAttribute("data-index");
   }
 }
 

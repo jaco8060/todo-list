@@ -80,7 +80,7 @@ class Project {
         todoData.details,
         new Date(todoData.date)
       );
-      if (todoData.starred) todo.makeStarred(); // Assuming Todo has makeStarred method
+      if (todoData.starred) todo.makeStarred();
       project._todoList.push(todo);
     });
     return project;
