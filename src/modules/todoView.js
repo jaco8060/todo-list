@@ -149,7 +149,7 @@ class todoView {
 
     const localStorageList = webStorage.loadStorage("myProjectList");
 
-    console.log(localStorageList);
+    // console.log(localStorageList);
     localStorageList.forEach((list_item) => {
       this.addProjectButton(list_item.projectName, list_item.index);
     });
@@ -158,9 +158,10 @@ class todoView {
   static deleteProjectButton(e) {
     // Prevent the default action
     e.preventDefault();
-
+    // Stop the event from bubbling up and prevent other handlers from being executed
+    e.stopImmediatePropagation();
     // Access the parent container of the clicked delete button
-    const buttonContainer = e.target.parentNode;
+    const buttonContainer = e.currentTarget.parentNode;
 
     // Find the project button within the container
     const projectButton = buttonContainer.querySelector(".project-button");
@@ -173,6 +174,9 @@ class todoView {
 
     // delete from dom
     buttonContainer.remove();
+
+    //update indices in the dom
+    todoView.updateProjectListDisplay();
   }
 }
 
