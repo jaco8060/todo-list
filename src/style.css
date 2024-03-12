@@ -104,8 +104,15 @@ body {
     justify-content: left;
 }
 
-.content{
+#content{
     display: flex;
+    flex-direction: column;
+    padding: 1rem 2rem;
+}
+
+#content h1 {
+    font-size: var(--header-font);
+    font-weight: 600;
 }
 
 .default-projects {

@@ -31,7 +31,22 @@ class todoView {
     cancelProject.addEventListener("click", this.hidePopupDisplay);
     addProjectForm.addEventListener("submit", this.addProject);
   }
-  static displayContentWindow(e) {}
+  static displayContentWindow(e) {
+    // reset content
+    const content = document.getElementById("content");
+    content.innerHTML = "";
+
+    const projectHeading = document.createElement("h1");
+
+    const buttonText = e.target.textContent; // or e.target.innerText
+
+    projectHeading.textContent = buttonText;
+
+    content.appendChild(projectHeading);
+
+    // retrieve project using index
+    const index = e.target.getAttribute("data-index");
+  }
 
   static hidePopupDisplay(e) {
     const projectPopup = document.querySelector(".input-group");
@@ -79,6 +94,8 @@ class todoView {
     // Create the button element
     const projectListButton = document.createElement("button");
     projectListButton.setAttribute("class", "project-button");
+    // Set the data-index attribute to the button
+    projectListButton.setAttribute("data-index", index);
 
     // Create the img element
     const img = document.createElement("img");
