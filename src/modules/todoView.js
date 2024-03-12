@@ -40,12 +40,23 @@ class todoView {
 
     const buttonText = e.target.textContent; // or e.target.innerText
 
+    const projectContainer = document.createElement("div");
+    projectContainer.setAttribute("class", "project-container");
+
     projectHeading.textContent = buttonText;
 
     content.appendChild(projectHeading);
 
     // retrieve project using index
     const index = e.target.getAttribute("data-index");
+  }
+
+  static createTodoWindow(todo) {
+    const content = document.getElementById("content");
+
+    //create a container to contain todo
+    const todoContainer = document.createElement("div");
+    todoContainer.setAttribute("class", "todo-container");
   }
 
   static hidePopupDisplay(e) {
@@ -150,7 +161,7 @@ class todoView {
     const projectButton = buttonContainer.querySelector(".project-button");
 
     // Retrieve the 'data-index' attribute from the project button
-    const index = projectButton.getAttribute("data-index");
+    const index = parseInt(projectButton.getAttribute("data-index"), 10);
 
     //delete from project list
     webStorage.deleteFromStorage(index);
