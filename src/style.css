@@ -215,6 +215,22 @@ body {
     padding: 0.5rem 0.5rem;
     gap: 1rem;
 }
+
+
+.project-button-container:hover, .project-button-container:hover .project-button {
+    background-color: var(--secondary-dark);
+}
+
+/* Hide delete button initially */
+.project-button-container .fa-solid {
+    visibility: hidden;
+}
+
+/* Show delete button on hover */
+.project-button-container:hover .fa-solid {
+    visibility: visible;
+}
+
 .project-button {
     background-color: var(--secondary-light);
     border: none;
