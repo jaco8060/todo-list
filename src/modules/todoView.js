@@ -38,7 +38,7 @@ class todoView {
 
     const projectHeading = document.createElement("h1");
 
-    const buttonText = e.target.textContent; // or e.target.innerText
+    const buttonText = e.currentTarget.textContent; // or e.target.innerText
 
     const projectContainer = document.createElement("div");
     projectContainer.setAttribute("class", "project-container");
@@ -101,6 +101,9 @@ class todoView {
     const buttonContainer = document.createElement("div");
 
     buttonContainer.setAttribute("class", "project-button-container");
+    buttonContainer.addEventListener("click", (event) =>
+      this.displayContentWindow(event, projectListButton)
+    );
 
     // Create the button element
     const projectListButton = document.createElement("button");
@@ -113,14 +116,16 @@ class todoView {
     img.setAttribute("src", "img/menu-icon.svg");
     img.setAttribute("alt", "add icon");
     img.setAttribute("class", "project-button-icon");
-
+    img.addEventListener("click", (event) =>
+      todoView.displayContentWindow(event, projectListButton)
+    );
     // Append the img to the button
     projectListButton.appendChild(img);
 
     // Add text node for project name to the button
     projectListButton.appendChild(document.createTextNode(projectName));
     // Add event listener to update the dom
-    projectListButton.addEventListener("click", this.displayContentWindow);
+    // projectListButton.addEventListener("click", this.displayContentWindow);
 
     // Add button to button container
     buttonContainer.appendChild(projectListButton);
@@ -128,7 +133,7 @@ class todoView {
     // create delete button to delete project and append to button container
     const deleteButton = document.createElement("i");
     deleteButton.setAttribute("class", "fa-solid fa-xmark");
-    deleteButton.addEventListener("click", this.deleteProjectButton);
+    deleteButton.addEventListener("click", todoView.deleteProjectButton);
 
     buttonContainer.appendChild(deleteButton);
 
