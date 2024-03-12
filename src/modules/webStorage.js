@@ -1,4 +1,10 @@
 const webStorage = (function () {
+  const initializeStorage = () => {
+    if (!localStorage.getItem("myProjectList")) {
+      localStorage.setItem("myProjectList", JSON.stringify([]));
+    }
+  };
+
   const saveToStorage = (objectToSave, listName, index) => {
     // Retrieve the existing array from local storage
     let storedData = localStorage.getItem(listName);
@@ -59,6 +65,7 @@ const webStorage = (function () {
     loadStorage,
     countProjectsInStorage,
     deleteFromStorage,
+    initializeStorage,
   };
 })();
 
