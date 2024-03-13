@@ -32,6 +32,7 @@ class todoView {
     addProjectForm.addEventListener("submit", this.addProject);
   }
   static displayContentWindow(e) {
+    e.stopImmediatePropagation();
     // reset content
     const content = document.getElementById("content");
     content.innerHTML = "";
@@ -39,7 +40,7 @@ class todoView {
     const projectHeading = document.createElement("h1");
 
     const buttonText = e.currentTarget.textContent; // or e.target.innerText
-
+    console.log(e.currentTarget);
     const projectContainer = document.createElement("div");
     projectContainer.setAttribute("class", "project-container");
 
@@ -48,7 +49,8 @@ class todoView {
     content.appendChild(projectHeading);
 
     // retrieve project using index
-    const index = e.target.getAttribute("data-index");
+    const index = e.currentTarget.getAttribute("data-index");
+    console.log(index);
   }
 
   static createTodoWindow(todo) {
@@ -101,31 +103,25 @@ class todoView {
     const buttonContainer = document.createElement("div");
 
     buttonContainer.setAttribute("class", "project-button-container");
-    buttonContainer.addEventListener("click", (event) =>
-      this.displayContentWindow(event, projectListButton)
-    );
+    buttonContainer.setAttribute("data-index", index);
 
     // Create the button element
     const projectListButton = document.createElement("button");
     projectListButton.setAttribute("class", "project-button");
     // Set the data-index attribute to the button
-    projectListButton.setAttribute("data-index", index);
 
     // Create the img element
     const img = document.createElement("img");
     img.setAttribute("src", "img/menu-icon.svg");
     img.setAttribute("alt", "add icon");
     img.setAttribute("class", "project-button-icon");
-    img.addEventListener("click", (event) =>
-      todoView.displayContentWindow(event, projectListButton)
-    );
+
     // Append the img to the button
     projectListButton.appendChild(img);
 
     // Add text node for project name to the button
     projectListButton.appendChild(document.createTextNode(projectName));
     // Add event listener to update the dom
-    // projectListButton.addEventListener("click", this.displayContentWindow);
 
     // Add button to button container
     buttonContainer.appendChild(projectListButton);
@@ -136,6 +132,9 @@ class todoView {
     deleteButton.addEventListener("click", todoView.deleteProjectButton);
 
     buttonContainer.appendChild(deleteButton);
+
+    // Add click event listener to the button container
+    buttonContainer.addEventListener("click", todoView.displayContentWindow);
 
     // Append the button to project list
     projectList.appendChild(buttonContainer);
@@ -164,10 +163,10 @@ class todoView {
     const buttonContainer = e.currentTarget.parentNode;
 
     // Find the project button within the container
-    const projectButton = buttonContainer.querySelector(".project-button");
+    // const projectButton = buttonContainer.querySelector(".project-button");
 
     // Retrieve the 'data-index' attribute from the project button
-    const index = parseInt(projectButton.getAttribute("data-index"), 10);
+    const index = parseInt(buttonContainer.getAttribute("data-index"), 10);
 
     //delete from project list
     webStorage.deleteFromStorage(index);
