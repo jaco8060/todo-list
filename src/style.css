@@ -258,19 +258,74 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 1rem;
-    width: 50%;
+    width: 12rem;
     padding: 1rem;
     font-weight: 500;
     cursor: pointer;
     gap: 0.9rem;
     margin-top: 1rem;
+    border-radius: 10px;
 }
 #addTodoPopup:hover {
     background-color: var(--secondary-dark);
+}
+
+
+#addTodoWindowContainer {
+    width: 11rem;
+    background-color: var(--secondary-light);
+    display: none;
+    flex-direction: column;
+    padding: 1rem;
+    border: 1px solid var(--secondary-dark);
+    border-radius: 10px;
+    gap: 0.5rem;
+}
+/* #addTodoWindowContainer h2 {
+    font-weight: 800;
+    text-decoration: underline;
+} */
+#date-input {
+    width: 9rem;
+    height: 1.5rem;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-dark);
+    padding: 5px;
     
 }
 
-#addTodoWindowContainer {
-    background-color: var(--secondary-light);
-    width: 50%;
+#todo-title {
+    width: 10rem;
+    height: 1.2rem;
+    font-size: 1.2rem;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-dark);
+}
+
+#todo-details {
+    width: 10rem;
+    padding: 5px;
+    font-size: 1.2rem;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-dark);
+    max-width: 10rem;
+}
+
+
+#addTodoButton {
+    margin-top: 0.5rem;
+    background-color: lightgreen;
+    width: 10rem;
+    font-weight: 600;
+    border: 1px solid rgb(168, 167, 167);
+    border-radius: 6px;
+    font-size: 1rem;
+    height: 2.5rem;
+    outline: none;
+    cursor: pointer;
+}
+#addTodoButton:hover {
+    background-color: rgb(117, 196, 117);
 }

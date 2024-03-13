@@ -58,7 +58,16 @@
       </nav>
       <div id="content">
         <div class="project-container"></div>
-        <div id="addTodoWindowContainer"></div>
+        <form id="addTodoWindowContainer">
+          <!-- <h2>Add Todo</h2> -->
+          <label for="todo-title">Name of Todo:</label>
+          <input type="text" id="todo-title" required />
+          <label for="date-input">Date of Todo:</label>
+          <input type="date" id="date-input" name="date-input" required />
+          <label for="todo-details">Todo Details:</label>
+          <textarea id="todo-details" rows="2"></textarea>
+          <button id="addTodoButton">Add Todo</button>
+        </form>
       </div>
     </div>
   </body>

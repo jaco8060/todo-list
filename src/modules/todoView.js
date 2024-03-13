@@ -47,12 +47,8 @@ class todoView {
     projectHeading.textContent = buttonText;
     content.appendChild(projectHeading);
 
-    // create Add Todo window
-    const addTodoWindowContainer = document.createElement("div");
-    addTodoWindowContainer.setAttribute("id", "addTodoWindowContainer");
-    addTodoWindowContainer.innerHTML = `
-    
-    `;
+    // call on function to create addTodoWindowcontainer
+    todoView.createAddWindowContainer();
 
     // create Add Todo button
     const addTodoContainer = document.createElement("div");
@@ -64,17 +60,51 @@ class todoView {
     `;
     content.appendChild(addTodoContainer);
     const addTodoPopup = document.getElementById("addTodoPopup");
-    addTodoPopup.addEventListener("click", this.showAddTodoDisplay);
+    addTodoPopup.addEventListener("click", todoView.showAddTodoDisplay);
 
     // create add project button
     const addIcon = document.createElement("i");
     addIcon.setAttribute("class", "fa-solid fa-plus");
-    addIcon.addEventListener("click", this.showAddTodoDisplay);
+    addIcon.addEventListener("click", todoView.showAddTodoDisplay);
 
     // retrieve project using index
     const index = parseInt(e.currentTarget.getAttribute("data-index"), 10);
   }
-  static showAddTodoDisplay(e) {}
+
+  static createAddWindowContainer() {
+    // create Add Todo window
+    const addTodoWindowContainer = document.createElement("form");
+    const content = document.getElementById("content");
+
+    addTodoWindowContainer.setAttribute("id", "addTodoWindowContainer");
+    addTodoWindowContainer.innerHTML = `
+        <label for="todo-title">Name of Todo:</label>
+        <input type="text" id="todo-title" required />
+        <label for="date-input">Date of Todo:</label>
+        <input type="date" id="date-input" name="date-input" required />
+        <label for="todo-details">Todo Details:</label>
+        <textarea id="todo-details" rows="2"></textarea>
+        <button id="addTodoButton">Add Todo</button>
+        `;
+    content.appendChild(addTodoWindowContainer);
+    const addTodoButton = document.getElementById("addTodoButton");
+    const todoTitle = document.getElementById("todo-title");
+    const dateInput = document.getElementById("date-input");
+    const todoDetails = document.getElementById("todo-details");
+
+    addTodoButton.addEventListener("click", todoView.addTodo);
+  }
+
+  static addTodo(e) {}
+
+  static showAddTodoDisplay(e) {
+    const addTodoWindowContainer = document.getElementById(
+      "addTodoWindowContainer"
+    );
+    const addTodoPopup = document.getElementById("addTodoPopup");
+    addTodoWindowContainer.style.display = "flex";
+    addTodoPopup.style.display = "none";
+  }
 
   static createTodoWindow(todo) {
     const content = document.getElementById("content");
