@@ -243,3 +243,34 @@ body {
     display: flex;
     align-items: center;
 }
+
+#content {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    
+}
+
+#addTodoPopup {
+    background-color: var(--secondary-light);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    width: 50%;
+    padding: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    gap: 0.9rem;
+    margin-top: 1rem;
+}
+#addTodoPopup:hover {
+    background-color: var(--secondary-dark);
+    
+}
+
+#addTodoWindowContainer {
+    background-color: var(--secondary-light);
+    width: 50%;
+}

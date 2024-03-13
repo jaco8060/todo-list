@@ -1,3 +1,4 @@
+import { add } from "date-fns";
 import { allTodos } from "./allTodos";
 import { Project } from "./projectController";
 import { webStorage } from "./webStorage";
@@ -37,21 +38,43 @@ class todoView {
     const content = document.getElementById("content");
     content.innerHTML = "";
 
-    const projectHeading = document.createElement("h1");
-
-    const buttonText = e.currentTarget.textContent; // or e.target.innerText
-    console.log(e.currentTarget);
     const projectContainer = document.createElement("div");
     projectContainer.setAttribute("class", "project-container");
 
+    // create heading and place it on the dom for the current project selected
+    const projectHeading = document.createElement("h1");
+    const buttonText = e.currentTarget.textContent; // or e.target.innerText
     projectHeading.textContent = buttonText;
-
     content.appendChild(projectHeading);
 
+    // create Add Todo window
+    const addTodoWindowContainer = document.createElement("div");
+    addTodoWindowContainer.setAttribute("id", "addTodoWindowContainer");
+    addTodoWindowContainer.innerHTML = `
+    
+    `;
+
+    // create Add Todo button
+    const addTodoContainer = document.createElement("div");
+    addTodoContainer.innerHTML = `
+    <button id="addTodoPopup">
+      <i class="fa-solid fa-plus"></i>
+      Add Todo
+    </button>
+    `;
+    content.appendChild(addTodoContainer);
+    const addTodoPopup = document.getElementById("addTodoPopup");
+    addTodoPopup.addEventListener("click", this.showAddTodoDisplay);
+
+    // create add project button
+    const addIcon = document.createElement("i");
+    addIcon.setAttribute("class", "fa-solid fa-plus");
+    addIcon.addEventListener("click", this.showAddTodoDisplay);
+
     // retrieve project using index
-    const index = e.currentTarget.getAttribute("data-index");
-    console.log(index);
+    const index = parseInt(e.currentTarget.getAttribute("data-index"), 10);
   }
+  static showAddTodoDisplay(e) {}
 
   static createTodoWindow(todo) {
     const content = document.getElementById("content");
@@ -159,11 +182,9 @@ class todoView {
     e.preventDefault();
     // Stop the event from bubbling up and prevent other handlers from being executed
     e.stopImmediatePropagation();
+
     // Access the parent container of the clicked delete button
     const buttonContainer = e.currentTarget.parentNode;
-
-    // Find the project button within the container
-    // const projectButton = buttonContainer.querySelector(".project-button");
 
     // Retrieve the 'data-index' attribute from the project button
     const index = parseInt(buttonContainer.getAttribute("data-index"), 10);
