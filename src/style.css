@@ -406,6 +406,7 @@ body {
 
 .fa-regular.fa-star {
     font-size: 2rem;
+
 }
 
 /* Hide delete button initially */
@@ -414,6 +415,6 @@ body {
 }
 
 /* Show delete button on hover */
-.todoContainer:hover .fa-solid.fa-pen-to-square {
+.todo-container:hover .fa-solid.fa-pen-to-square {
     visibility: visible;
 }
