@@ -44,7 +44,7 @@ class todoView {
     content.appendChild(todoContainer);
 
     //change active project selection
-    todoView.updateActiveProjectSelection(e);
+    todoView.updateActiveProjectSelection(e.currentTarget);
 
     // create heading and place it on the dom for the current project selected
     const projectHeading = document.createElement("h1");
@@ -80,10 +80,8 @@ class todoView {
     addIcon.addEventListener("click", todoView.showAddTodoDisplay);
   }
 
-  static updateActiveProjectSelection(e) {
+  static updateActiveProjectSelection(currentSelectedContainer) {
     const previousSelectedContainer = document.querySelector(".active");
-
-    const currentSelectedContainer = e.target;
 
     const currentSelectedButton =
       currentSelectedContainer.querySelector(".project-button");
