@@ -269,7 +269,9 @@ body {
 #addTodoPopup:hover {
     background-color: var(--secondary-dark);
 }
-
+.active{
+    background-color: var(--secondary-dark);
+}
 
 #addTodoWindowContainer {
     margin-top: 1rem;
@@ -282,10 +284,7 @@ body {
     border-radius: 10px;
     gap: 0.5rem;
 }
-/* #addTodoWindowContainer h2 {
-    font-weight: 800;
-    text-decoration: underline;
-} */
+
 #date-input {
     width: 9rem;
     height: 1.5rem;

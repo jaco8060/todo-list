@@ -43,6 +43,9 @@ class todoView {
     todoContainer.setAttribute("class", "todo-container");
     content.appendChild(todoContainer);
 
+    //change active project selection
+    todoView.updateActiveProjectSelection(e);
+
     // create heading and place it on the dom for the current project selected
     const projectHeading = document.createElement("h1");
     const buttonText = e.currentTarget.textContent; // or e.target.innerText
@@ -77,6 +80,24 @@ class todoView {
     addIcon.addEventListener("click", todoView.showAddTodoDisplay);
   }
 
+  static updateActiveProjectSelection(e) {
+    const previousSelectedContainer = document.querySelector(".active");
+
+    const currentSelectedContainer = e.target;
+
+    const currentSelectedButton =
+      currentSelectedContainer.querySelector(".project-button");
+    // If there is a previously selected element, remove the .active class
+    if (previousSelectedContainer !== null) {
+      const previousSelectedButton =
+        previousSelectedContainer.querySelector(".project-button");
+      previousSelectedContainer.classList.remove("active");
+      previousSelectedButton.classList.remove("active");
+    }
+    // Add the .active class to the clicked element
+    currentSelectedContainer.classList.add("active");
+    currentSelectedButton.classList.add("active");
+  }
   static createAddWindowContainer(project) {
     // create Add Todo window
     const addTodoWindowContainer = document.createElement("form");
@@ -223,7 +244,6 @@ class todoView {
     // Create the button element
     const projectListButton = document.createElement("button");
     projectListButton.setAttribute("class", "project-button");
-    // Set the data-index attribute to the button
 
     // Create the img element
     const img = document.createElement("img");
