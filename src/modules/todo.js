@@ -33,7 +33,6 @@ class Todo {
   // Setters
   set title(newTitle) {
     this._title = newTitle;
-    this.updateOverdueStatus(); // Update overdue status in case the change affects it
   }
 
   set details(newDetails) {

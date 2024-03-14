@@ -31,7 +31,7 @@ class Project {
 
   set index(newIndex) {
     this._index = newIndex;
-    this.saveProject(); // Save any changes
+    // this.saveProject(); // Save any changes
   }
 
   addProjectTask(title, details, date) {
