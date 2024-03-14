@@ -38,11 +38,6 @@ class todoView {
     const content = document.getElementById("content");
     content.innerHTML = "";
 
-    //create div to contain todos
-    const todoContainer = document.createElement("div");
-    todoContainer.setAttribute("class", "todo-container");
-    content.appendChild(todoContainer);
-
     //change active project selection
     todoView.updateActiveProjectSelection(e.currentTarget);
 
@@ -51,6 +46,11 @@ class todoView {
     const buttonText = e.currentTarget.textContent; // or e.target.innerText
     projectHeading.textContent = buttonText;
     content.appendChild(projectHeading);
+
+    //create div to contain todos
+    const projectContainer = document.createElement("div");
+    projectContainer.setAttribute("class", "project-container");
+    content.appendChild(projectContainer);
 
     // retrieve project index
     const index = parseInt(e.currentTarget.getAttribute("data-index"), 10);
@@ -64,10 +64,11 @@ class todoView {
 
     // create Add Todo button
     const addTodoContainer = document.createElement("div");
+    addTodoContainer.setAttribute("class", "addTodoPopupContainer");
     addTodoContainer.innerHTML = `
     <button id="addTodoPopup">
-      <i class="fa-solid fa-plus"></i>
-      Add Todo
+    <i class="fa-solid fa-plus"></i>
+    Add Todo
     </button>
     `;
     content.appendChild(addTodoContainer);
@@ -78,6 +79,9 @@ class todoView {
     const addIcon = document.createElement("i");
     addIcon.setAttribute("class", "fa-solid fa-plus");
     addIcon.addEventListener("click", todoView.showAddTodoDisplay);
+
+    //update todos on the page
+    todoView.updateProjectContainer(project.todoList);
   }
 
   static updateActiveProjectSelection(currentSelectedContainer) {
@@ -130,33 +134,74 @@ class todoView {
     const addTodoWindowContainer = document.getElementById(
       "addTodoWindowContainer"
     );
-    todoView.updateTodoContainer(project.todoList);
-    // Check if required fields are filled
-    if (addTodoWindowContainer.checkValidity()) {
+
+    // Regular expression to match the date format YYYY-MM-DD
+    const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
+
+    // Check if required fields are filled and the date format is correct
+    if (
+      addTodoWindowContainer.checkValidity() &&
+      dateFormatRegex.test(dateInput.value)
+    ) {
       project.addProjectTask(
         todoTitle.value,
         todoDetails.value,
         dateInput.value
       );
-      todoView.updateTodoContainer(project.todoList);
+      todoView.updateProjectContainer(project.todoList);
       todoView.hideAddTodoDisplay();
     } else {
-      addTodoWindowContainer.reportValidity();
+      if (!dateFormatRegex.test(dateInput.value)) {
+        alert("Please enter the date in YYYY-MM-DD format.");
+      } else {
+        addTodoWindowContainer.reportValidity();
+      }
       return;
     }
 
     console.log(project.todoList);
   }
 
-  static updateTodoContainer(projectList) {
-    const todoContainer = document.querySelector(".todo-container");
+  static updateProjectContainer(projectList) {
+    const projectContainer = document.querySelector(".project-container");
 
     // clear container
-    todoContainer.innerHTML = "";
+    projectContainer.innerHTML = "";
 
-    projectList.forEach((todo) => console.log(todo));
+    projectList.forEach((todo) => todoView.createTodoWindow(todo));
   }
 
+  static createTodoWindow(todo) {
+    const projectContainer = document.querySelector(".project-container");
+
+    //create a container to contain todo
+    const todoContainer = document.createElement("div");
+    todoContainer.setAttribute("class", "todo-container");
+
+    todoContainer.innerHTML = `
+    <div class="leftPanel">
+    <span
+    ><h2 class="todoTitle"></h2>
+    <i class="fa-solid fa-pen-to-square"></i
+    ></span>
+    <p class="todoDetails"></p>
+    </div>
+    <div class="rightPanel">
+    <input type="date" class="todoDate" />
+    <i class="fa-regular fa-star"></i>
+    </div>
+    `;
+    const todoTitle = todoContainer.querySelector(".todoTitle");
+    const todoDetails = todoContainer.querySelector(".todoDetails");
+    const todoDate = todoContainer.querySelector(".todoDate");
+    const starButton = todoContainer.querySelector(".fa-regular.fa-star");
+
+    todoTitle.textContent = todo.title;
+    todoDetails.textContent = todo.details;
+    todoDate.value = todo.formatDate(todo.date);
+
+    projectContainer.appendChild(todoContainer);
+  }
   static createTodoObjectDisplay(todo) {
     const todoContainer = document.querySelector(".todo-container");
   }
@@ -185,14 +230,6 @@ class todoView {
 
     addTodoWindowContainer.style.display = "none";
     addTodoPopup.style.display = "flex";
-  }
-
-  static createTodoWindow(todo) {
-    const content = document.getElementById("content");
-
-    //create a container to contain todo
-    const todoContainer = document.createElement("div");
-    todoContainer.setAttribute("class", "todo-container");
   }
 
   static hidePopupDisplay(e) {

@@ -1,12 +1,21 @@
-import { isBefore, startOfToday } from "date-fns";
+import { format, isBefore, parseISO, startOfToday } from "date-fns";
 
 class Todo {
   constructor(title, details, date) {
     this._title = title;
     this._details = details;
-    this._date = date instanceof Date ? date : new Date(date); // Ensure _date is a Date object
+    this._date = this.parseDate(date); // Use parseDate to ensure _date is a Date object
     this._starred = false;
     this.updateOverdueStatus();
+  }
+  // Parses a date input to a Date object
+  parseDate(date) {
+    return typeof date === "string" ? parseISO(date) : date;
+  }
+
+  // Formats a Date object to "YYYY-MM-DD" string
+  formatDate(date) {
+    return format(date, "yyyy-MM-dd");
   }
 
   // Getters
@@ -39,9 +48,10 @@ class Todo {
     this._details = newDetails;
   }
 
+  // Parses the date from "YYYY-MM-DD" format when setting
   set date(newDate) {
-    this._date = newDate instanceof Date ? newDate : new Date(newDate);
-    this.updateOverdueStatus(); // Always update overdue status when date changes
+    this._date = this.parseDate(newDate);
+    this.updateOverdueStatus();
   }
 
   updateOverdueStatus() {
