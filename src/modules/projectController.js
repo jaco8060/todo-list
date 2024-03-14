@@ -55,6 +55,11 @@ class Project {
     }
   }
 
+  sortTodoListByDate() {
+    this._todoList.sort((a, b) => a.date - b.date);
+    this.saveProject(); //  save the project after sorting
+  }
+
   saveProject() {
     webStorage.saveToStorage(this.toJSON(), "myProjectList", this._index);
   }
