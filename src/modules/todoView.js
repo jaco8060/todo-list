@@ -81,7 +81,8 @@ class todoView {
     addIcon.addEventListener("click", todoView.showAddTodoDisplay);
 
     //update todos on the page
-    todoView.updateProjectContainer(project.todoList);
+
+    todoView.updateProjectContainer(project);
   }
 
   static updateActiveProjectSelection(currentSelectedContainer) {
@@ -137,7 +138,7 @@ class todoView {
 
     // Regular expression to match the date format YYYY-MM-DD
     const dateFormatRegex = /^\d{4}-\d{2}-\d{2}$/;
-
+    const projectTodolist = project.todoList;
     // Check if required fields are filled and the date format is correct
     if (
       addTodoWindowContainer.checkValidity() &&
@@ -146,9 +147,10 @@ class todoView {
       project.addProjectTask(
         todoTitle.value,
         todoDetails.value,
-        dateInput.value
+        dateInput.value,
+        projectTodolist.length //set it to be the last element in the array + 1
       );
-      todoView.updateProjectContainer(project.todoList);
+      todoView.updateProjectContainer(project);
       todoView.hideAddTodoDisplay();
     } else {
       if (!dateFormatRegex.test(dateInput.value)) {
@@ -162,11 +164,14 @@ class todoView {
     console.log(project.todoList);
   }
 
-  static updateProjectContainer(projectList) {
+  static updateProjectContainer(project) {
     const projectContainer = document.querySelector(".project-container");
-
+    const projectList = project.todoList;
     // clear container
     projectContainer.innerHTML = "";
+
+    //sort todos by date:
+    project.sortTodoListByDate();
 
     projectList.forEach((todo) => todoView.createTodoWindow(todo));
   }
@@ -177,6 +182,7 @@ class todoView {
     //create a container to contain todo
     const todoContainer = document.createElement("div");
     todoContainer.setAttribute("class", "todo-container");
+    todoContainer.setAttribute("data-index", todo.index);
 
     todoContainer.innerHTML = `
     <div class="leftPanel">

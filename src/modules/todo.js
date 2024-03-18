@@ -1,10 +1,11 @@
 import { format, isBefore, parseISO, startOfToday } from "date-fns";
 
 class Todo {
-  constructor(title, details, date) {
+  constructor(title, details, date, index) {
     this._title = title;
     this._details = details;
     this._date = this.parseDate(date); // Use parseDate to ensure _date is a Date object
+    this._index = index;
     this._starred = false;
     this.updateOverdueStatus();
   }
@@ -31,6 +32,9 @@ class Todo {
     return this._date;
   }
 
+  get index() {
+    return this._index;
+  }
   get isOverdue() {
     return this._isOverdue;
   }
@@ -54,6 +58,10 @@ class Todo {
     this.updateOverdueStatus();
   }
 
+  set index(newIndex) {
+    this._index = newIndex;
+  }
+
   updateOverdueStatus() {
     this._isOverdue = isBefore(this._date, startOfToday());
   }
@@ -74,6 +82,7 @@ class Todo {
       title: this._title,
       details: this._details,
       date: this._date.toISOString(), // Convert Date to ISO string for serialization
+      index: this._index,
       starred: this._starred,
       isOverdue: this._isOverdue, // Optionally include if you want to persist this status
     };

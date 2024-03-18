@@ -34,8 +34,8 @@ class Project {
     // this.saveProject(); // Save any changes
   }
 
-  addProjectTask(title, details, date) {
-    const todoItem = new Todo(title, details, date);
+  addProjectTask(title, details, date, index) {
+    const todoItem = new Todo(title, details, date, index);
     this._todoList.push(todoItem);
     this.saveProject();
     allTodos.updateAllTodoListFromStorage();
@@ -57,6 +57,10 @@ class Project {
 
   sortTodoListByDate() {
     this._todoList.sort((a, b) => a.date - b.date);
+    for (let i = 0; i < this._todoList.length; i++) {
+      this._todoList[i].index = i;
+    }
+    // reset index of todos
     this.saveProject(); //  save the project after sorting
   }
 
@@ -83,7 +87,8 @@ class Project {
       const todo = new Todo(
         todoData.title,
         todoData.details,
-        new Date(todoData.date)
+        new Date(todoData.date),
+        todoData.index
       );
       if (todoData.starred) todo.makeStarred();
       project._todoList.push(todo);
