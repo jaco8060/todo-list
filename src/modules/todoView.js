@@ -173,10 +173,10 @@ class todoView {
     //sort todos by date:
     project.sortTodoListByDate();
 
-    projectList.forEach((todo) => todoView.createTodoWindow(todo));
+    projectList.forEach((todo) => todoView.createTodoWindow(todo, project));
   }
 
-  static createTodoWindow(todo) {
+  static createTodoWindow(todo, project) {
     const projectContainer = document.querySelector(".project-container");
 
     //create a container to contain todo
@@ -200,16 +200,33 @@ class todoView {
     const todoTitle = todoContainer.querySelector(".todoTitle");
     const todoDetails = todoContainer.querySelector(".todoDetails");
     const todoDate = todoContainer.querySelector(".todoDate");
-    const starButton = todoContainer.querySelector(".fa-regular.fa-star");
+    const starButton = todoContainer.querySelector(".fa-star");
+    starButton.addEventListener("click", (e) =>
+      todoView.toggleStarred(e, todo, project)
+    );
 
     todoTitle.textContent = todo.title;
     todoDetails.textContent = todo.details;
     todoDate.value = todo.formatDate(todo.date);
 
+    todo.starred
+      ? starButton.setAttribute("class", "fa-solid fa-star")
+      : starButton.setAttribute("class", "fa-regular fa-star");
+
     projectContainer.appendChild(todoContainer);
   }
-  static createTodoObjectDisplay(todo) {
-    const todoContainer = document.querySelector(".todo-container");
+
+  static toggleStarred(e, todo, project) {
+    if (e.currentTarget.className == "fa-regular fa-star") {
+      e.currentTarget.setAttribute("class", "fa-solid fa-star");
+      todo.makeStarred();
+      project.saveProject();
+    } else if (e.currentTarget.className == "fa-solid fa-star") {
+      e.currentTarget.setAttribute("class", "fa-regular fa-star");
+      todo.removeStarred();
+      project.saveProject();
+    }
+    console.log(e.currentTarget.className);
   }
 
   static showAddTodoDisplay(e) {

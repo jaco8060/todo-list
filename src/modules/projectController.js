@@ -41,18 +41,10 @@ class Project {
     allTodos.updateAllTodoListFromStorage();
   }
 
-  removeProjectTask(todoToRemove) {
-    const index = this._todoList.findIndex(
-      (todo) =>
-        todo.title === todoToRemove.title &&
-        todo.details === todoToRemove.details &&
-        todo.date.getTime() === todoToRemove.date.getTime()
-    );
-    if (index !== -1) {
-      this._todoList.splice(index, 1);
-      this.saveProject();
-      allTodos.updateAllTodoListFromStorage();
-    }
+  removeProjectTask(todoToRemoveIndex) {
+    this._todoList.splice(todoToRemoveIndex, 1);
+    this.saveProject();
+    allTodos.updateAllTodoListFromStorage();
   }
 
   sortTodoListByDate() {
