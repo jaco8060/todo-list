@@ -210,6 +210,7 @@ class todoView {
       todoView.deleteTodo(e, todo, project)
     );
     const editButton = todoContainer.querySelector("fa-pen-to-square");
+    editButton.addEventListener("click");
 
     todoTitle.textContent = todo.title;
     todoDetails.textContent = todo.details;

@@ -7,6 +7,7 @@ class Project {
     this._index = index;
     this._projectName = projectName;
     this._todoList = [];
+    this._isDefault = false; //for inbox, today, this week, starred project lists
     if (saveImmediately) {
       this.saveProject(); // Only save if specified, is true
     }
@@ -32,6 +33,10 @@ class Project {
   set index(newIndex) {
     this._index = newIndex;
     // this.saveProject(); // Save any changes
+  }
+
+  set isDefault(boolean) {
+    this._isDefault = boolean;
   }
 
   addProjectTask(title, details, date, index) {
@@ -65,15 +70,15 @@ class Project {
       index: this._index,
       projectName: this._projectName,
       todoList: this._todoList.map((todo) => todo.toJSON()),
+      isDefault: this._isDefault,
     };
   }
 
   static rehydrate(projectData) {
-    // Using 'false' to prevent automatic saving during rehydration
     const project = new Project(
       projectData.projectName,
       projectData.index,
-      false
+      false // Prevent automatic saving during rehydration
     );
     projectData.todoList.forEach((todoData) => {
       const todo = new Todo(
@@ -85,6 +90,7 @@ class Project {
       if (todoData.starred) todo.makeStarred();
       project._todoList.push(todo);
     });
+    project.isDefault = projectData.isDefault; // Set isDefault based on saved data
     return project;
   }
 }
