@@ -195,6 +195,7 @@ class todoView {
     <div class="rightPanel">
     <input type="date" class="todoDate" />
     <i class="fa-regular fa-star"></i>
+    <i class="fa-solid fa-trash"></i>
     </div>
     `;
     const todoTitle = todoContainer.querySelector(".todoTitle");
@@ -204,6 +205,11 @@ class todoView {
     starButton.addEventListener("click", (e) =>
       todoView.toggleStarred(e, todo, project)
     );
+    const trashButton = todoContainer.querySelector(".fa-trash");
+    trashButton.addEventListener("click", (e) =>
+      todoView.deleteTodo(e, todo, project)
+    );
+    const editButton = todoContainer.querySelector("fa-pen-to-square");
 
     todoTitle.textContent = todo.title;
     todoDetails.textContent = todo.details;
@@ -227,6 +233,11 @@ class todoView {
       project.saveProject();
     }
     console.log(e.currentTarget.className);
+  }
+
+  static deleteTodo(e, todo, project) {
+    project.removeProjectTask(todo.index);
+    todoView.updateProjectContainer(project);
   }
 
   static showAddTodoDisplay(e) {

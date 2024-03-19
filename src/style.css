@@ -366,7 +366,7 @@ body {
     border: 1px solid var(--primary-dark);
     padding: 1rem;
     border-radius: 10px;  
-    width: 50rem;
+    width: 55rem;
     gap: 0.5rem;
 }
 
@@ -398,6 +398,7 @@ body {
 .rightPanel{
     display: flex;
     gap: 1rem;
+    align-items: center;
 }
 .todoDate{
     align-self: center;
@@ -406,6 +407,10 @@ body {
 
 .fa-star {
     font-size: 2rem;
+}
+
+.fa-trash {
+    font-size: 1.5rem;
 }
 
 /* Hide delete button initially */
