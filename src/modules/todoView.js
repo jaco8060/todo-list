@@ -202,6 +202,7 @@ class todoView {
     const todoDetails = todoContainer.querySelector(".todoDetails");
     const todoDate = todoContainer.querySelector(".todoDate");
     const starButton = todoContainer.querySelector(".fa-star");
+
     starButton.addEventListener("click", (e) =>
       todoView.toggleStarred(e, todo, project)
     );
@@ -209,8 +210,15 @@ class todoView {
     trashButton.addEventListener("click", (e) =>
       todoView.deleteTodo(e, todo, project)
     );
-    const editButton = todoContainer.querySelector("fa-pen-to-square");
-    editButton.addEventListener("click");
+    // add listener for todo title
+    todoTitle.addEventListener("click", (e) =>
+      todoView.editTitle(e, todo, project)
+    );
+
+    // add listener for todo details
+    todoDetails.addEventListener("click", (e) =>
+      todoView.editDetails(e, todo, project)
+    );
 
     todoTitle.textContent = todo.title;
     todoDetails.textContent = todo.details;
@@ -221,6 +229,75 @@ class todoView {
       : starButton.setAttribute("class", "fa-regular fa-star");
 
     projectContainer.appendChild(todoContainer);
+  }
+  static editTitle(e, todo, project) {
+    const todoTitle = e.currentTarget;
+
+    // Create a new input element
+    const input = document.createElement("input");
+
+    // Set the input type to text
+    input.type = "text";
+    // Set the input's initial value to the current title
+    input.value = todoTitle.textContent;
+    // Replace the todoTitle with the input element
+    todoTitle.replaceWith(input);
+    // Focus the input field to start editing immediately
+    input.focus();
+
+    // Define what happens when the input loses focus
+    input.addEventListener("blur", function () {
+      // Update the todo's title with the new value
+      todoTitle.textContent = input.value;
+
+      // Replace the input with the updated todoTitle element
+      input.replaceWith(todoTitle);
+
+      todo.title = input.value;
+      project.saveProject();
+    });
+
+    //  Save the change if the user presses Enter
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        input.blur(); // This triggers the blur event handler above
+      }
+    });
+  }
+
+  static editDetails(e, todo, project) {
+    const todoTitle = e.currentTarget;
+
+    // Create a new input element
+    const input = document.createElement("input");
+
+    // Set the input type to text
+    input.type = "text";
+    // Set the input's initial value to the current title
+    input.value = todoTitle.textContent;
+    // Replace the todoTitle with the input element
+    todoTitle.replaceWith(input);
+    // Focus the input field to start editing immediately
+    input.focus();
+
+    // Define what happens when the input loses focus
+    input.addEventListener("blur", function () {
+      // Update the todo's title with the new value
+      todoTitle.textContent = input.value;
+
+      // Replace the input with the updated todoTitle element
+      input.replaceWith(todoTitle);
+
+      todo.details = input.value;
+      project.saveProject();
+    });
+
+    //  Save the change if the user presses Enter
+    input.addEventListener("keypress", function (e) {
+      if (e.key === "Enter") {
+        input.blur(); // This triggers the blur event handler above
+      }
+    });
   }
 
   static toggleStarred(e, todo, project) {
