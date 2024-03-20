@@ -53,7 +53,7 @@ class todoView {
     content.appendChild(projectContainer);
 
     // retrieve project index
-    const index = parseInt(e.currentTarget.getAttribute("data-index"), 10);
+    const index = e.currentTarget.getAttribute("data-index");
 
     // load project based on index
     const projectData = webStorage.loadStorage("myProjectList")[index];

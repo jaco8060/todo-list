@@ -39,17 +39,21 @@ class Project {
     this._isDefault = boolean;
   }
 
+  set todoList(newList) {
+    this._todoList = newList;
+  }
+
   addProjectTask(title, details, date, index) {
     const todoItem = new Todo(title, details, date, index);
     this._todoList.push(todoItem);
     this.saveProject();
-    allTodos.updateAllTodoListFromStorage();
+    // allTodos.updateAllTodoListFromStorage();
   }
 
   removeProjectTask(todoToRemoveIndex) {
     this._todoList.splice(todoToRemoveIndex, 1);
     this.saveProject();
-    allTodos.updateAllTodoListFromStorage();
+    // allTodos.updateAllTodoListFromStorage();
   }
 
   sortTodoListByDate() {

@@ -14,7 +14,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
   webStorage.initializeStorage();
   // update dom
   todoView.updateProjectListDisplay();
+  // allTodos.updateAllTodoListFromStorage();
+  console.log(allTodos.getInboxTodoList());
+  console.log(allTodos.getWithinSevenList());
+  console.log(allTodos.getTodayTodoList());
+  console.log(allTodos.getStarredTodoList());
 });
+
 // const project1 = new Project("project1", 0);
 // const project2 = new Project("project2", 1);
 // const project3 = new Project("project3", 2);

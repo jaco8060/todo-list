@@ -1,30 +1,47 @@
 import { add, endOfDay, endOfToday, isBefore, startOfToday } from "date-fns";
+import { Project } from "./projectController";
 import { webStorage } from "./webStorage";
-
 const allTodos = (function () {
   // This variable holds all todo items. It's updated based on storage or other operations.
-  let allTodosList = [];
+
+  // create project list for inbox
+  const inboxProject = new Project("Inbox", "inbox");
+  const todayProject = new Project("Today", "today");
+  const thisWeekProject = new Project("This Week", "thisWeek");
+  const starredProject = new Project("Starred", "starred");
+
+  // let inboxList = inboxProject.todoList;
+  // let todayList = todayProject.todoList;
+  // let thisWeekList = thisWeekProject.todoList;
+  // let starredList = starredProject.todoList;
 
   // Function to update allTodosList based on stored data
   const updateAllTodoListFromStorage = () => {
-    let list = [];
     let allProjects = webStorage.loadStorage("myProjectList");
+    // temp list to store todos for inbox
+    let list = [];
+    console.log(allProjects);
 
-    if (Array.isArray(allProjects)) {
-      for (let i = 0; i < allProjects.length; i++) {
-        if (Array.isArray(allProjects[i])) {
-          for (let j = 0; j < allProjects[i].length; j++) {
-            list.push(allProjects[i][j]);
-          }
-        }
-      }
+    if (allProjects.length != 0) {
+      let count = 0;
+      allProjects.forEach((project) => {
+        project.todoList.forEach((todo) => {
+          // console.log(todo);
+          list.push(todo);
+        });
+        count++;
+      });
     }
-
-    allTodosList = list; // Update the allTodosList with the latest data
+    inboxProject.todoList = list;
+    thisWeekProject.todoList = updateWithinSevenList();
+    todayProject.todoList = updateTodayList();
+    starredProject.todoList = updateStarredList();
   };
 
-  const getTodoList = () => allTodosList;
-
+  const getInboxTodoList = () => inboxProject.todoList;
+  const getTodayTodoList = () => todayProject.todoList;
+  const getWithinSevenList = () => thisWeekProject.todoList;
+  const getStarredTodoList = () => starredProject.todoList;
   const checkDate = () => {
     const today = startOfToday();
     const addSevenFromToday = add(today, {
@@ -35,18 +52,21 @@ const allTodos = (function () {
     return { today, sevenEndDate };
   };
 
-  const withinSevenList = () => {
-    return allTodosList.filter((todo) =>
+  const updateWithinSevenList = () => {
+    // console.log(getInboxTodoList());
+    return getInboxTodoList().filter((todo) =>
       isBefore(todo.date, checkDate().sevenEndDate)
     );
   };
 
-  const todayList = () => {
-    return allTodosList.filter((todo) => isBefore(todo.date, endOfToday()));
+  const updateTodayList = () => {
+    return getInboxTodoList().filter((todo) =>
+      isBefore(todo.date, endOfToday())
+    );
   };
 
-  const starredList = () => {
-    return allTodosList.filter((todo) => todo.starred === true);
+  const updateStarredList = () => {
+    return getInboxTodoList().filter((todo) => todo.starred === true);
   };
 
   // Call this function to initially populate allTodosList from storage
@@ -54,10 +74,13 @@ const allTodos = (function () {
 
   return {
     updateAllTodoListFromStorage, // Allow manual update from storage if needed
-    getTodoList,
-    withinSevenList,
-    todayList,
-    starredList,
+    getInboxTodoList,
+    updateWithinSevenList,
+    updateTodayList,
+    updateStarredList,
+    getWithinSevenList,
+    getTodayTodoList,
+    getStarredTodoList,
   };
 })();
 
