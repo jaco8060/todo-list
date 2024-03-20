@@ -392,8 +392,9 @@ body {
     font-size: 1rem;
     width: 35rem;
     word-wrap: break-word; /* Ensure long words can break and wrap */
-
-}
+    min-height: 1rem; /* Ensure the element has a height even when empty */
+  }
+  
 
 .rightPanel{
     display: flex;
