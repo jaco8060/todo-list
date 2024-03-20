@@ -49,7 +49,10 @@ class Todo {
   }
 
   set details(newDetails) {
-    this._details = newDetails;
+    // Set _details to newDetails or '-' if newDetails is falsy (but not 0 or false)
+    this._details =
+      newDetails ||
+      (newDetails !== 0 && newDetails !== false ? "-" : newDetails);
   }
 
   // Parses the date from "YYYY-MM-DD" format when setting

@@ -220,6 +220,11 @@ class todoView {
       todoView.editDetails(e, todo, project)
     );
 
+    // add listener for todo date change
+    todoDate.addEventListener("change", (e) =>
+      todoView.editDate(e, todo, project)
+    );
+
     todoTitle.textContent = todo.title;
     todoDetails.textContent = todo.details;
     todoDate.value = todo.formatDate(todo.date);
@@ -229,6 +234,11 @@ class todoView {
       : starButton.setAttribute("class", "fa-regular fa-star");
 
     projectContainer.appendChild(todoContainer);
+  }
+
+  static editDate(e, todo, project) {
+    todo.date = e.currentTarget.value;
+    project.saveProject();
   }
   static editTitle(e, todo, project) {
     const todoTitle = e.currentTarget;
