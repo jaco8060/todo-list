@@ -20,22 +20,36 @@ const allTodos = (function () {
     let allProjects = webStorage.loadStorage("myProjectList");
     // temp list to store todos for inbox
     let list = [];
-    console.log(allProjects);
+    // console.log(allProjects);
 
     if (allProjects.length != 0) {
-      let count = 0;
       allProjects.forEach((project) => {
-        project.todoList.forEach((todo) => {
+        const hydratedProject = Project.rehydrate(project);
+        let count = 0;
+        hydratedProject.todoList.forEach((todo) => {
           // console.log(todo);
+          todo.index = count;
           list.push(todo);
+          count++;
         });
-        count++;
       });
     }
     inboxProject.todoList = list;
     thisWeekProject.todoList = updateWithinSevenList();
     todayProject.todoList = updateTodayList();
     starredProject.todoList = updateStarredList();
+
+    //update indices:
+    updateIndices(inboxProject);
+    updateIndices(thisWeekProject);
+    updateIndices(todayProject);
+    updateIndices(starredProject);
+
+    // save rehydrated projects to storage:
+    inboxProject.saveProject();
+    thisWeekProject.saveProject();
+    todayProject.saveProject();
+    starredProject.saveProject();
   };
 
   const getInboxTodoList = () => inboxProject.todoList;
@@ -57,6 +71,13 @@ const allTodos = (function () {
     return getInboxTodoList().filter((todo) =>
       isBefore(todo.date, checkDate().sevenEndDate)
     );
+  };
+
+  const updateIndices = (project) => {
+    // console.log(project.todoList.length);
+    for (let i = 0; i < project.todoList.length; i++) {
+      project.todoList[i].index = i;
+    }
   };
 
   const updateTodayList = () => {
@@ -81,6 +102,7 @@ const allTodos = (function () {
     getWithinSevenList,
     getTodayTodoList,
     getStarredTodoList,
+    updateIndices,
   };
 })();
 
