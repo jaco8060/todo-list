@@ -23,27 +23,42 @@
       </div>
       <nav id="nav">
         <div class="default-projects">
-          <button class="side-button" id="inboxBtn" data-index="inbox">
-            <img src="img\allTodos.svg" alt="Logo" class="button-icon" />
-            Inbox
-          </button>
-          <button class="side-button" id="todayBtn">
-            <img
-              src="img\today.svg"
-              alt="Logo"
-              class="button-icon"
-              data-index="today"
-            />
-            Today
-          </button>
-          <button class="side-button" id="weekBtn" data-index="thisWeek">
-            <img src="img\sevenDays.svg" alt="Logo" class="button-icon" />
-            This Week
-          </button>
-          <button class="side-button" id="starBtn" data-index="starred">
-            <img src="img\star-filled.svg" alt="Logo" class="button-icon" />
-            Starred
-          </button>
+          <div class="project-button-container" data-index="0" id="inboxBtn">
+            <button class="project-button">
+              <img
+                src="img\allTodos.svg"
+                alt="inbox"
+                class="project-button-icon"
+              />Inbox
+            </button>
+          </div>
+          <div class="project-button-container" data-index="1" id="todayBtn">
+            <button class="project-button">
+              <img
+                src="img\today.svg"
+                alt="today button"
+                class="project-button-icon"
+              />Today
+            </button>
+          </div>
+          <div class="project-button-container" data-index="2" id="weekBtn">
+            <button class="project-button">
+              <img
+                src="img\sevenDays.svg"
+                alt="seven days button"
+                class="project-button-icon"
+              />This Week
+            </button>
+          </div>
+          <div class="project-button-container" data-index="3" id="starBtn">
+            <button class="project-button">
+              <img
+                src="img\star-filled.svg"
+                alt="starred button"
+                class="project-button-icon"
+              />Starred
+            </button>
+          </div>
         </div>
         <h1 class="projects-heading">Projects</h1>
         <div id="customProjects"></div>
@@ -62,21 +77,7 @@
         </div>
       </nav>
       <div id="content">
-        <div class="project-container">
-          <div class="todo-container">
-            <div class="leftPanel">
-              <span
-                ><h2 class="todoTitle">todo1</h2>
-                <i class="fa-solid fa-pen-to-square"></i
-              ></span>
-              <p class="todoDetails">hi im a</p>
-            </div>
-            <div class="rightPanel">
-              <input type="date" class="todoDate" />
-              <i class="fa-regular fa-star"></i>
-            </div>
-          </div>
-        </div>
+        <div class="project-container"></div>
         <form id="addTodoWindowContainer">
           <label for="todo-title">Name of Todo:</label>
           <input type="text" id="todo-title" required />

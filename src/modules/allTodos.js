@@ -5,10 +5,10 @@ const allTodos = (function () {
   // This variable holds all todo items. It's updated based on storage or other operations.
 
   // create project list for inbox
-  const inboxProject = new Project("Inbox", "inbox");
-  const todayProject = new Project("Today", "today");
-  const thisWeekProject = new Project("This Week", "thisWeek");
-  const starredProject = new Project("Starred", "starred");
+  const inboxProject = new Project("Inbox", 0, false);
+  const todayProject = new Project("Today", 1, false);
+  const thisWeekProject = new Project("This Week", 2, false);
+  const starredProject = new Project("Starred", 3, false);
 
   // let inboxList = inboxProject.todoList;
   // let todayList = todayProject.todoList;
@@ -20,24 +20,28 @@ const allTodos = (function () {
     let allProjects = webStorage.loadStorage("myProjectList");
     // temp list to store todos for inbox
     let list = [];
-    // console.log(allProjects);
 
     if (allProjects.length != 0) {
-      allProjects.forEach((project) => {
-        const hydratedProject = Project.rehydrate(project);
-        let count = 0;
-        hydratedProject.todoList.forEach((todo) => {
-          // console.log(todo);
-          todo.index = count;
-          list.push(todo);
-          count++;
-        });
-      });
+      //start from the 4th project (outside of the default projects)
+      for (let i = 4; i < allProjects.length; i++) {
+        const hydratedProject = Project.rehydrate(allProjects[i]);
+
+        for (let i = 0; i < hydratedProject.todoList.length; i++) {
+          hydratedProject.todoList[i].index = i;
+          list.push(hydratedProject.todoList[i]);
+        }
+      }
     }
     inboxProject.todoList = list;
     thisWeekProject.todoList = updateWithinSevenList();
     todayProject.todoList = updateTodayList();
     starredProject.todoList = updateStarredList();
+
+    //set isdefault for all the default projects to true
+    inboxProject.isDefault = true;
+    thisWeekProject.isDefault = true;
+    todayProject.isDefault = true;
+    starredProject.isDefault = true;
 
     //update indices:
     updateIndices(inboxProject);
@@ -91,7 +95,7 @@ const allTodos = (function () {
   };
 
   // Call this function to initially populate allTodosList from storage
-  updateAllTodoListFromStorage();
+  // updateAllTodoListFromStorage();
 
   return {
     updateAllTodoListFromStorage, // Allow manual update from storage if needed

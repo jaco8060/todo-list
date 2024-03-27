@@ -69,6 +69,10 @@ class Project {
     webStorage.saveToStorage(this.toJSON(), "myProjectList", this._index);
   }
 
+  saveDefaultProject() {
+    webStorage.saveToStorage(this.toJSON(), "defaultProjectList", this._index);
+  }
+
   toJSON() {
     return {
       index: this._index,

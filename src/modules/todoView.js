@@ -23,10 +23,10 @@ class todoView {
     const addProjectForm = document.getElementById("addProjectForm");
     const starredBtn = document.getElementById("starBtn");
 
-    inboxBtn.addEventListener("click", this.displayContentWindowInbox);
-    todayBtn.addEventListener("click", this.displayContentWindowToday);
-    weekBtn.addEventListener("click", this.displayContentWindowWeek);
-    starredBtn.addEventListener("click", this.displayContentWindowStarred);
+    inboxBtn.addEventListener("click", this.displayContentWindow);
+    todayBtn.addEventListener("click", this.displayContentWindow);
+    weekBtn.addEventListener("click", this.displayContentWindow);
+    starredBtn.addEventListener("click", this.displayContentWindow);
     addProjectPopup.addEventListener("click", this.showPopupDisplay);
     addProject.addEventListener("click", this.addProject);
     cancelProject.addEventListener("click", this.hidePopupDisplay);
@@ -38,12 +38,14 @@ class todoView {
     const content = document.getElementById("content");
     content.innerHTML = "";
 
+    //update default todos
+
     //change active project selection
     todoView.updateActiveProjectSelection(e.currentTarget);
 
     // create heading and place it on the dom for the current project selected
     const projectHeading = document.createElement("h1");
-    const buttonText = e.currentTarget.textContent; // or e.target.innerText
+    const buttonText = e.currentTarget.textContent.trim(); // or e.target.innerText
     projectHeading.textContent = buttonText;
     content.appendChild(projectHeading);
 
@@ -56,29 +58,34 @@ class todoView {
     const index = e.currentTarget.getAttribute("data-index");
 
     // load project based on index
-    const projectData = webStorage.loadStorage("myProjectList")[index];
 
+    const projectData = webStorage.loadStorage("myProjectList")[index];
     const project = Project.rehydrate(projectData);
     // call on function to create addTodoWindowcontainer using project data
     todoView.createAddWindowContainer(project);
-
-    // create Add Todo button
-    const addTodoContainer = document.createElement("div");
-    addTodoContainer.setAttribute("class", "addTodoPopupContainer");
-    addTodoContainer.innerHTML = `
-    <button id="addTodoPopup">
-    <i class="fa-solid fa-plus"></i>
-    Add Todo
-    </button>
-    `;
-    content.appendChild(addTodoContainer);
-    const addTodoPopup = document.getElementById("addTodoPopup");
-    addTodoPopup.addEventListener("click", todoView.showAddTodoDisplay);
-
-    // create add project button
-    const addIcon = document.createElement("i");
-    addIcon.setAttribute("class", "fa-solid fa-plus");
-    addIcon.addEventListener("click", todoView.showAddTodoDisplay);
+    if (
+      buttonText !== "Inbox" &&
+      buttonText !== "Today" &&
+      buttonText !== "This Week" &&
+      buttonText !== "Starred"
+    ) {
+      // create Add Todo button
+      const addTodoContainer = document.createElement("div");
+      addTodoContainer.setAttribute("class", "addTodoPopupContainer");
+      addTodoContainer.innerHTML = `
+      <button id="addTodoPopup">
+      <i class="fa-solid fa-plus"></i>
+      Add Todo
+      </button>
+      `;
+      content.appendChild(addTodoContainer);
+      const addTodoPopup = document.getElementById("addTodoPopup");
+      addTodoPopup.addEventListener("click", todoView.showAddTodoDisplay);
+      // create add project button
+      const addIcon = document.createElement("i");
+      addIcon.setAttribute("class", "fa-solid fa-plus");
+      addIcon.addEventListener("click", todoView.showAddTodoDisplay);
+    }
 
     //update todos on the page
 
@@ -88,8 +95,6 @@ class todoView {
   static updateActiveProjectSelection(currentSelectedContainer) {
     const previousSelectedContainer = document.querySelector(".active");
 
-    const currentSelectedButton =
-      currentSelectedContainer.querySelector(".project-button");
     // If there is a previously selected element, remove the .active class
     if (previousSelectedContainer !== null) {
       const previousSelectedButton =
@@ -97,9 +102,16 @@ class todoView {
       previousSelectedContainer.classList.remove("active");
       previousSelectedButton.classList.remove("active");
     }
-    // Add the .active class to the clicked element
-    currentSelectedContainer.classList.add("active");
-    currentSelectedButton.classList.add("active");
+
+    let currentSelectedButton =
+      currentSelectedContainer.querySelector(".project-button");
+    if (currentSelectedContainer.classList == "project-button-container") {
+      // Add the .active class to the clicked element
+      currentSelectedContainer.classList.add("active");
+      currentSelectedButton.classList.add("active");
+    } else {
+      currentSelectedContainer.classList.add("active");
+    }
   }
   static createAddWindowContainer(project) {
     // create Add Todo window
@@ -152,6 +164,8 @@ class todoView {
       );
       todoView.updateProjectContainer(project);
       todoView.hideAddTodoDisplay();
+      //update default projects
+      allTodos.updateAllTodoListFromStorage();
     } else {
       if (!dateFormatRegex.test(dateInput.value)) {
         alert("Please enter the date in YYYY-MM-DD format.");
@@ -160,8 +174,6 @@ class todoView {
       }
       return;
     }
-
-    console.log(project.todoList);
   }
 
   static updateProjectContainer(project) {
@@ -300,6 +312,8 @@ class todoView {
 
       todo.details = input.value;
       project.saveProject();
+      //update default projects
+      allTodos.updateAllTodoListFromStorage();
     });
 
     //  Save the change if the user presses Enter
@@ -320,12 +334,16 @@ class todoView {
       todo.removeStarred();
       project.saveProject();
     }
-    console.log(e.currentTarget.className);
+    //update default projects
+    allTodos.updateAllTodoListFromStorage();
   }
 
   static deleteTodo(e, todo, project) {
     project.removeProjectTask(todo.index);
     todoView.updateProjectContainer(project);
+
+    //update default projects
+    allTodos.updateAllTodoListFromStorage();
   }
 
   static showAddTodoDisplay(e) {
@@ -440,10 +458,17 @@ class todoView {
 
     const localStorageList = webStorage.loadStorage("myProjectList");
 
-    // console.log(localStorageList);
-    localStorageList.forEach((list_item) => {
-      this.addProjectButton(list_item.projectName, list_item.index);
-    });
+    //update the list with all projects except default projects
+    for (let i = 4; i < localStorageList.length; i++) {
+      this.addProjectButton(
+        localStorageList[i].projectName,
+        localStorageList[i].index
+      );
+    }
+
+    // localStorageList.forEach((list_item) => {
+    //   this.addProjectButton(list_item.projectName, list_item.index);
+    // });
   }
 
   static deleteProjectButton(e) {

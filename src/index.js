@@ -14,11 +14,13 @@ document.addEventListener("DOMContentLoaded", (event) => {
   webStorage.initializeStorage();
   // update dom
   todoView.updateProjectListDisplay();
-  // allTodos.updateAllTodoListFromStorage();
-  console.log(allTodos.getInboxTodoList());
-  console.log(allTodos.getWithinSevenList());
-  console.log(allTodos.getTodayTodoList());
-  console.log(allTodos.getStarredTodoList());
+  allTodos.updateAllTodoListFromStorage();
+
+  //start at default inbox page
+
+  // Simulate a click on the Inbox button to initialize the webpage with the Inbox view
+  const inboxBtn = document.getElementById("inboxBtn");
+  inboxBtn.click();
 });
 
 // const project1 = new Project("project1", 0);
