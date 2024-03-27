@@ -190,60 +190,77 @@ class todoView {
 
   static createTodoWindow(todo, project) {
     const projectContainer = document.querySelector(".project-container");
-
     //create a container to contain todo
     const todoContainer = document.createElement("div");
+    console.log(project.index);
     todoContainer.setAttribute("class", "todo-container");
     todoContainer.setAttribute("data-index", todo.index);
+    if (project.index >= 4) {
+      // console.log("greater than 3");
+      todoContainer.innerHTML = `
+      <div class="leftPanel">
+      <span
+      ><h2 class="todoTitle"></h2>
+      <i class="fa-solid fa-pen-to-square"></i
+      ></span>
+      <p class="todoDetails"></p>
+      </div>
+      <div class="rightPanel">
+      <input type="date" class="todoDate" />
+      <i class="fa-regular fa-star"></i>
+      <i class="fa-solid fa-trash"></i>
+      </div>
+      `;
+      const todoTitle = todoContainer.querySelector(".todoTitle");
+      const todoDetails = todoContainer.querySelector(".todoDetails");
+      const todoDate = todoContainer.querySelector(".todoDate");
+      const starButton = todoContainer.querySelector(".fa-star");
 
-    todoContainer.innerHTML = `
-    <div class="leftPanel">
-    <span
-    ><h2 class="todoTitle"></h2>
-    <i class="fa-solid fa-pen-to-square"></i
-    ></span>
-    <p class="todoDetails"></p>
-    </div>
-    <div class="rightPanel">
-    <input type="date" class="todoDate" />
-    <i class="fa-regular fa-star"></i>
-    <i class="fa-solid fa-trash"></i>
-    </div>
-    `;
-    const todoTitle = todoContainer.querySelector(".todoTitle");
-    const todoDetails = todoContainer.querySelector(".todoDetails");
-    const todoDate = todoContainer.querySelector(".todoDate");
-    const starButton = todoContainer.querySelector(".fa-star");
+      starButton.addEventListener("click", (e) =>
+        todoView.toggleStarred(e, todo, project)
+      );
+      const trashButton = todoContainer.querySelector(".fa-trash");
+      trashButton.addEventListener("click", (e) =>
+        todoView.deleteTodo(e, todo, project)
+      );
+      // add listener for todo title
+      todoTitle.addEventListener("click", (e) =>
+        todoView.editTitle(e, todo, project)
+      );
 
-    starButton.addEventListener("click", (e) =>
-      todoView.toggleStarred(e, todo, project)
-    );
-    const trashButton = todoContainer.querySelector(".fa-trash");
-    trashButton.addEventListener("click", (e) =>
-      todoView.deleteTodo(e, todo, project)
-    );
-    // add listener for todo title
-    todoTitle.addEventListener("click", (e) =>
-      todoView.editTitle(e, todo, project)
-    );
+      // add listener for todo details
+      todoDetails.addEventListener("click", (e) =>
+        todoView.editDetails(e, todo, project)
+      );
+      // add listener for todo date change
+      todoDate.addEventListener("change", (e) =>
+        todoView.editDate(e, todo, project)
+      );
 
-    // add listener for todo details
-    todoDetails.addEventListener("click", (e) =>
-      todoView.editDetails(e, todo, project)
-    );
+      todoTitle.textContent = todo.title;
+      todoDetails.textContent = todo.details;
+      todoDate.value = todo.formatDate(todo.date);
 
-    // add listener for todo date change
-    todoDate.addEventListener("change", (e) =>
-      todoView.editDate(e, todo, project)
-    );
-
-    todoTitle.textContent = todo.title;
-    todoDetails.textContent = todo.details;
-    todoDate.value = todo.formatDate(todo.date);
-
-    todo.starred
-      ? starButton.setAttribute("class", "fa-solid fa-star")
-      : starButton.setAttribute("class", "fa-regular fa-star");
+      todo.starred
+        ? starButton.setAttribute("class", "fa-solid fa-star")
+        : starButton.setAttribute("class", "fa-regular fa-star");
+    } else {
+      todoContainer.innerHTML = `
+      <div class="leftPanel">
+      <h2 class="todoTitle"></h2>
+      <p class="todoDetails"></p>
+      </div>
+      <div class="rightPanel">
+      <input type="date" class="todoDate" />
+      </div>
+      `;
+      const todoTitle = todoContainer.querySelector(".todoTitle");
+      const todoDetails = todoContainer.querySelector(".todoDetails");
+      const todoDate = todoContainer.querySelector(".todoDate");
+      todoTitle.textContent = todo.title;
+      todoDetails.textContent = todo.details;
+      todoDate.value = todo.formatDate(todo.date);
+    }
 
     projectContainer.appendChild(todoContainer);
   }
