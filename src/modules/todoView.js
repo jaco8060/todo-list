@@ -1,4 +1,6 @@
 import { add } from "date-fns";
+import menuIcon from "../img/menu-icon.svg";
+
 import { allTodos } from "./allTodos";
 import { Project } from "./projectController";
 import { webStorage } from "./webStorage";
@@ -439,7 +441,7 @@ class todoView {
 
     // Create the img element
     const img = document.createElement("img");
-    img.setAttribute("src", "img/menu-icon.svg");
+    img.setAttribute("src", menuIcon);
     img.setAttribute("alt", "add icon");
     img.setAttribute("class", "project-button-icon");
 
