@@ -510,6 +510,9 @@ class todoView {
 
     //update indices in the dom
     todoView.updateProjectListDisplay();
+
+    //update default projects
+    allTodos.updateAllTodoListFromStorage();
   }
 }
 
