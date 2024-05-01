@@ -530,8 +530,8 @@ class todoView {
 
       // Update the toggle button icon based on the sidebar's visibility
       toggleNav.innerHTML = nav.classList.contains("navHidden")
-        ? '<i class="fa-solid fa-list"></i>'
-        : '<i class="fa-solid fa-arrow-left"></i>';
+        ? '<i class="fa-solid fa-arrow-left"></i>'
+        : '<i class="fa-solid fa-list"></i>';
     });
   }
 }
