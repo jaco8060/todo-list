@@ -33,6 +33,7 @@ class todoView {
     addProject.addEventListener("click", this.addProject);
     cancelProject.addEventListener("click", this.hidePopupDisplay);
     addProjectForm.addEventListener("submit", this.addProject);
+    todoView.initializeSidebarToggle();
   }
   static displayContentWindow(e) {
     e.stopImmediatePropagation();
@@ -513,6 +514,25 @@ class todoView {
 
     //update default projects
     allTodos.updateAllTodoListFromStorage();
+  }
+
+  static initializeSidebarToggle() {
+    const nav = document.getElementById("nav");
+    const toggleNav = document.getElementById("toggleNav");
+    const mainContainer = document.querySelector(".main-container");
+
+    toggleNav.addEventListener("click", function () {
+      // Toggle the visibility of the sidebar
+      nav.classList.toggle("navHidden");
+
+      // Adjust the main container's layout by toggling the fullwidth class
+      mainContainer.classList.toggle("fullwidth");
+
+      // Update the toggle button icon based on the sidebar's visibility
+      toggleNav.innerHTML = nav.classList.contains("navHidden")
+        ? '<i class="fa-solid fa-list"></i>'
+        : '<i class="fa-solid fa-arrow-left"></i>';
+    });
   }
 }
 
